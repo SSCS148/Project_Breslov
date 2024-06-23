@@ -51,6 +51,11 @@ app.get('/api/some-secured-route', verifyToken, (req, res) => {
   res.json({ message: 'Access granted', userId: req.userId });
 });
 
+// Ajoutez cette route pour la racine
+app.get('/', (req, res) => {
+  res.send('Bienvenue sur le backend de Project Breslov!');
+});
+
 const PORT = process.env.PORT || 5002;
 
 sequelize.sync({ alter: true }).then(async () => {
