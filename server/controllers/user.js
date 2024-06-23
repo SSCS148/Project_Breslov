@@ -15,11 +15,13 @@ const generateTokens = (user) => {
 };
 
 // Register a new user
+// Register a new user
 exports.register = async (req, res) => {
   const { name, email, password, age } = req.body;
   try {
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
+      console.log('Email already in use:', email);
       return res.status(400).json({ message: 'Email already in use' });
     }
 
@@ -27,30 +29,37 @@ exports.register = async (req, res) => {
     const newUser = await User.create({ name, email, password: hashedPassword, age });
 
     const tokens = generateTokens(newUser);
+    console.log('User registered successfully:', newUser);
 
     res.status(201).json({ message: 'User registered successfully', data: { tokens } });
   } catch (error) {
+    console.error('Error registering user:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 
+// Login a user
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ where: { email } });
     if (!user) {
+      console.log('User not found:', email);
       return res.status(400).json({ message: 'User not found' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
+      console.log('Invalid password for email:', email);
       return res.status(400).json({ message: 'Invalid password' });
     }
 
     const tokens = generateTokens(user);
+    console.log('User logged in successfully:', user);
 
     res.status(200).json({ message: 'Login successful', data: { tokens } });
   } catch (error) {
+    console.error('Error logging in user:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
