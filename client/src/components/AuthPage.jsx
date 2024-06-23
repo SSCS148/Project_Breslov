@@ -31,7 +31,7 @@ const AuthPage = () => {
     
             const response = await axios.post(url, data);
     
-            console.log('Response:', response.data);
+            console.log('Response:', response);
     
             setMessage(response.data.message);
     
