@@ -1,0 +1,415 @@
+@import url("https://fonts.googleapis.com/css2?family=Kunstler+Script&display=swap");
+
+body {
+  font-family: "Kunstler Script", cursive;
+  margin: 0;
+  padding: 0;
+  background: url("https://i.etsystatic.com/18965517/r/il/91e1d2/3642966670/il_fullxfull.3642966670_c485.jpg")
+    no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+}
+
+/* Nouveau style pour le logo */
+.logo-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.site-logo {
+  width: 150px;
+  height: auto;
+}
+
+header {
+  /* background-color: #003366e8; */
+  color: white;
+  padding: 10px;
+  width: 70%;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 40px;
+  text-align: center;
+  width: 100%;
+}
+
+nav {
+  background-color: #003366e8;
+  width: 105.3%;
+  top: 95px;
+  z-index: 1000;
+  position: relative;
+  border-radius: 7px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 10px 0;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-left: 10px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+nav ul li {
+  display: inline;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+nav ul li a:hover {
+  background-color: #005599;
+  border-radius: 5px;
+}
+
+main {
+  width: 100%;
+  max-width: 800px;
+  padding: 44px 20px 20px;
+  background-color: rgba(255, 255, 255, 0.591);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+section h2 {
+  border-bottom: 2px solid #003366;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.input-group input,
+.input-group textarea {
+  width: calc(100% - 22px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-container button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #000000;
+  padding: 5px;
+  font-size: 12px;
+  width: 50px;
+  height: 30px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #003366;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #d99e1c;
+}
+
+#message {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #000000;
+}
+
+footer {
+  background-color: #003366;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+}
+
+#posts {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  white-space: nowrap;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f991;
+}
+
+.post-container {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* styles.css */
+.comment-container {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  max-width: 400px;
+  overflow-y: auto;
+}
+
+.comment-container p {
+  margin: 5px 0;
+}
+
+#commentsSection {
+  max-height: 323px;
+  overflow-y: auto;
+  border: 2px outset darkblue;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f900;
+  padding: 20px 5px;
+}
+
+#commentsBanner {
+  max-height: 400px;
+  overflow-y: hidden;
+  border: 2px outset darkblue;
+  padding: 50px;
+  border-radius: 5px;
+  background-color: #f9f9f900;
+  position: relative;
+}
+
+#commentsSection {
+  position: relative;
+  width: 100%;
+  animation: scrollComments 10s linear infinite;
+}
+
+.comment-container {
+  background-color: rgba(255, 255, 255, 0.725);
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px0;
+  border-radius: 5px;
+}
+
+.comment-container p {
+  margin: 5px 0;
+}
+
+.fullscreen-img {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.fullscreen-img img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+.fullscreen-img.visible {
+  display: flex;
+}
+
+.posts-container {
+  max-height: 600px; /* Ajustez la hauteur selon vos besoins */
+  overflow-y: auto;
+  border: 1px solid #ccc; /* Ajoutez des styles pour le conteneur si nécessaire */
+  padding: 10px;
+  background-color: rgba(255,255,255,0.8); /* Pour une meilleure lisibilité */
+  border-radius: 7px;
+}
+.post {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff; /* Couleur de fond pour chaque post */
+  border-radius: 7px;
+}
+.post img {
+  max-width: 100%;
+  height: auto;
+}
+.thumbnail {
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+}
+
+/* Modal Styles */
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.logo-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.logo {
+  max-width: 200px;
+  height: auto;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .navbar nav ul li {
+    margin: 0 0.5rem;
+  }
+
+  .logo-breslov {
+    width: 80px;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar h1 {
+    font-size: 1.5rem;
+  }
+
+  .navbar nav ul li {
+    display: block;
+    margin: 0.5rem 0;
+  }
+
+  .logo-breslov {
+    width: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar h1 {
+    font-size: 1.2rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .content section {
+    margin-bottom: 1rem;
+  }
+
+  .logo-breslov {
+    width: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+
+  .navbar nav ul li {
+    margin: 0.3rem 0;
+  }
+
+  .content {
+    padding: 0.5rem;
+  }
+
+  .logo-breslov {
+    width: 40px;
+  }
+}
+/* stylesmain.css */
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.live {
+  font-size: 1.5rem;
+  color: green;
+  animation: blink 1s infinite;
+}
