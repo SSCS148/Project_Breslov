@@ -21,20 +21,20 @@ const AuthPage = () => {
             const url = isLogin 
                 ? `${process.env.REACT_APP_API_URL}/api/user/login`
                 : `${process.env.REACT_APP_API_URL}/api/user/register`;
-
+    
             const data = isLogin 
                 ? { email, password }
                 : { name, email, password, age };
-
+    
             console.log('Sending request to:', url);
             console.log('Request data:', data);
-
+    
             const response = await axios.post(url, data);
-
+    
             console.log('Response:', response.data);
-
+    
             setMessage(response.data.message);
-
+    
             if (isLogin) {
                 localStorage.setItem('token', response.data.tokens.accessToken);
                 window.location.href = '/main'; // Rediriger vers MainPage après connexion
