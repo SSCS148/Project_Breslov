@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/User');
+const userController = require('../controllers/user');
 const authMiddleware = require('../middlewares/auth');
 
 // Ajout des routes pour l'authentification et le renouvellement des tokens
