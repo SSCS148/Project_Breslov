@@ -30,7 +30,7 @@ exports.register = async (req, res) => {
     const tokens = generateTokens(newUser);
 
     console.log(`${ANSI_GREEN}[User Registered]\nName: ${name}\nEmail: ${email}\nAge: ${age}${ANSI_RESET}`);
-    res.status(201).json({ message: 'User registered successfully', tokens });
+    res.status(201).json({ message: 'User registered successfully', data: { tokens } });
   } catch (error) {
     console.error(`${ANSI_RED}Error registering user: ${error}${ANSI_RESET}`);
     res.status(500).json({ message: 'Internal server error' });
@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
     const tokens = generateTokens(user);
 
     console.log(`${ANSI_GREEN}[User Logged In]\nEmail: ${email}${ANSI_RESET}`);
-    res.status(200).json({ message: 'Login successful', tokens });
+    res.status(200).json({ message: 'Login successful', data: { tokens } });
   } catch (error) {
     console.error(`${ANSI_RED}Error logging in user: ${error}${ANSI_RESET}`);
     res.status(500).json({ message: 'Internal server error' });
@@ -98,7 +98,7 @@ exports.refreshToken = async (req, res) => {
     const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
     const tokens = generateTokens({ id: decoded.id });
 
-    res.json(tokens);
+    res.json({ data: { tokens } });
   } catch (error) {
     console.error(`${ANSI_RED}Error refreshing token: ${error}${ANSI_RESET}`);
     res.status(500).json({ error: 'Error refreshing token' });

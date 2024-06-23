@@ -31,24 +31,27 @@ const AuthPage = () => {
     
             const response = await axios.post(url, data);
     
-            console.log('Response:', response);
+            if (response.data) {
+                console.log('Response:', response.data);
+                setMessage(response.data.message);
     
-            setMessage(response.data.message);
-    
-            if (isLogin) {
-                localStorage.setItem('token', response.data.tokens.accessToken);
-                window.location.href = '/main'; // Rediriger vers MainPage après connexion
+                if (isLogin) {
+                    localStorage.setItem('token', response.data.data.tokens.accessToken);
+                    window.location.href = '/main'; // Rediriger vers MainPage après connexion
+                } else {
+                    // Rediriger vers la page de connexion après enregistrement
+                    setIsLogin(true);
+                    setPassword('');
+                    setName('');
+                    setAge('');
+                    setMessage('Registration successful. Please log in.');
+                }
             } else {
-                // Rediriger vers la page de connexion après enregistrement
-                setIsLogin(true);
-                setPassword('');
-                setName('');
-                setAge('');
-                setMessage('Registration successful. Please log in.');
+                setMessage('Unexpected response format');
             }
         } catch (error) {
             console.log('Error response:', error.response);
-            setMessage(error.response.data.message || 'An error occurred');
+            setMessage(error.response?.data?.message || 'An error occurred');
         }
     };
 
