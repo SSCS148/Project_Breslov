@@ -15,43 +15,37 @@ const AuthPage = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleAuth = async (e) => {
-        e.preventDefault();
-        try {
-            const url = isLogin 
-                ? `${process.env.REACT_APP_API_URL}/api/user/login`
-                : `${process.env.REACT_APP_API_URL}/api/user/register`;
+    // Dans votre fichier AuthPage.jsx
+const handleAuth = async (e) => {
+    e.preventDefault();
+    try {
+        const url = isLogin 
+            ? process.env.REACT_APP_API_URL + '/api/user/login'
+            : process.env.REACT_APP_API_URL + '/api/user/register';
 
-            const data = isLogin 
-                ? { email, password }
-                : { name, email, password, age };
+        const data = isLogin 
+            ? { email, password }
+            : { name, email, password, age };
 
-            console.log('Sending request to:', url);
-            console.log('Request data:', data);
+        const response = await axios.post(url, data);
 
-            const response = await axios.post(url, data);
+        setMessage(response.data.message);
 
-            console.log('Response:', response.data);
-
-            setMessage(response.data.message);
-
-            if (isLogin) {
-                localStorage.setItem('token', response.data.data.tokens.accessToken);
-                window.location.href = '/main'; // Rediriger vers MainPage après connexion
-            } else {
-                // Rediriger vers la page de connexion après enregistrement
-                setIsLogin(true);
-                setPassword('');
-                setName('');
-                setAge('');
-                setMessage('Registration successful. Please log in.');
-            }
-        } catch (error) {
-            console.log('Error response:', error.response);
-            setMessage(error.response.data.message || 'An error occurred');
+        if (isLogin) {
+            localStorage.setItem('token', response.data.data.tokens.accessToken);
+            window.location.href = '/main'; // Rediriger vers MainPage après connexion
+        } else {
+            setIsLogin(true);
+            setPassword('');
+            setName('');
+            setAge('');
+            setMessage('Registration successful. Please log in.');
         }
-    };
-
+    } catch (error) {
+        console.log('Error response:', error.response);
+        setMessage(error.response?.data?.message || 'An error occurred');
+    }
+};
     const handleSwitchMode = () => {
         setIsLogin(!isLogin);
         setMessage('');
