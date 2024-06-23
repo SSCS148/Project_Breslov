@@ -21,37 +21,34 @@ const AuthPage = () => {
             const url = isLogin 
                 ? `${process.env.REACT_APP_API_URL}/api/user/login`
                 : `${process.env.REACT_APP_API_URL}/api/user/register`;
-    
+
             const data = isLogin 
                 ? { email, password }
                 : { name, email, password, age };
-    
+
             console.log('Sending request to:', url);
             console.log('Request data:', data);
-    
+
             const response = await axios.post(url, data);
-    
-            if (response.data) {
-                console.log('Response:', response.data);
-                setMessage(response.data.message);
-    
-                if (isLogin) {
-                    localStorage.setItem('token', response.data.data.tokens.accessToken);
-                    window.location.href = '/main'; // Rediriger vers MainPage après connexion
-                } else {
-                    // Rediriger vers la page de connexion après enregistrement
-                    setIsLogin(true);
-                    setPassword('');
-                    setName('');
-                    setAge('');
-                    setMessage('Registration successful. Please log in.');
-                }
+
+            console.log('Response:', response.data);
+
+            setMessage(response.data.message);
+
+            if (isLogin) {
+                localStorage.setItem('token', response.data.data.tokens.accessToken);
+                window.location.href = '/main'; // Rediriger vers MainPage après connexion
             } else {
-                setMessage('Unexpected response format');
+                // Rediriger vers la page de connexion après enregistrement
+                setIsLogin(true);
+                setPassword('');
+                setName('');
+                setAge('');
+                setMessage('Registration successful. Please log in.');
             }
         } catch (error) {
             console.log('Error response:', error.response);
-            setMessage(error.response?.data?.message || 'An error occurred');
+            setMessage(error.response.data.message || 'An error occurred');
         }
     };
 
