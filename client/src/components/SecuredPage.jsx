@@ -1,4 +1,3 @@
-// src/components/SecuredPage.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -20,10 +19,10 @@ const SecuredPage = () => {
                 setMessage(error.response.data.message || 'An error occurred');
             }
         };
-    
+
         fetchData();
     }, []);
-    
+
     return (
         <div>
             <h1>Secured Page</h1>

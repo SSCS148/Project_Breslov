@@ -9,7 +9,6 @@ const CommentsSection = ({ newComment }) => {
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`);
                 if (response.ok) {
                     const data = await response.json();
-                    // Sort comments so that the newest appear at the top
                     setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
                 } else {
                     console.error('Error fetching comments:', response.statusText);
@@ -54,8 +53,7 @@ const CommentsSection = ({ newComment }) => {
             console.error('Error:', error);
         }
     };
-    
-    
+
     return (
         <div>
             <h2>Comments</h2>
@@ -75,6 +73,5 @@ const CommentsSection = ({ newComment }) => {
         </div>
     );
 };
-
 
 export default CommentsSection;
