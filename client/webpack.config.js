@@ -15,6 +15,7 @@ module.exports = {
     },
     hot: true,
     historyApiFallback: true,
+    port: 8080, // Assurez-vous que c'est le bon port pour votre application
   },
   module: {
     rules: [
@@ -38,7 +39,8 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[path][name].[ext]',
+              name: '[name].[ext]', // Simplified name format
+              outputPath: 'assets/', // Ensure images are saved in the assets folder
             },
           },
         ],
@@ -53,7 +55,7 @@ module.exports = {
       template: './src/index.html',
     }),
     new Dotenv({
-      path: './.env', // Path to .env file (this is the default)
+      path: './.env', // Assurez-vous que le chemin du fichier .env est correct
     }),
   ],
 };
