@@ -53,7 +53,7 @@ module.exports = {
       template: './src/index.html',
     }),
     new Dotenv({
-      path: './env', // Path to .env file (this is the default)
+      path: './src/.env', // Path to .env file (this is the default)
     }),
   ],
 };
