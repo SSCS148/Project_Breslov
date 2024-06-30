@@ -54,8 +54,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    new Dotenv({
-      path: './.env', // Assurez-vous que le chemin du fichier .env est correct
-    }),
   ],
 };
