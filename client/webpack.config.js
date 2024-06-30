@@ -52,6 +52,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    new Dotenv()
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default)
+    }),
   ],
 };
