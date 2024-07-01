@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../stylesmain.css';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const PostsContainer = ({ posts }) => {
     const [selectedImage, setSelectedImage] = useState(null);

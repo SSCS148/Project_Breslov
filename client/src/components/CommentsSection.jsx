@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const CommentsSection = ({ newComment }) => {
     const [comments, setComments] = useState([]);

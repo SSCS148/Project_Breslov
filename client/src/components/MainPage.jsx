@@ -5,6 +5,8 @@ import PostForm from './PostForm';
 import PostsContainer from './PostsContainer';
 import '../stylesmain.css';
 import logo from '../assets/פסים-צבעוני-חדש.jpeg';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const MainPage = () => {
     const [comments, setComments] = useState([]);

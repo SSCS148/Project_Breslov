@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const CommentForm = ({ onCommentPosted }) => {
     const [comment, setComment] = useState('');
