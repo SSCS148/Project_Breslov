@@ -6,14 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-  },
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),
-      allowedHosts: 'all',
-    },
-    hot: true,
-    historyApiFallback: true,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -32,13 +25,11 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpg|gif|jpeg)$/,
         use: [
           {
             loader: 'file-loader',
-            options: {
-              name: '[path][name].[ext]',
-            },
+            options: {},
           },
         ],
       },
@@ -52,4 +43,13 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 8080,
+    historyApiFallback: true,
+    host: '0.0.0.0',  // Ajouté pour permettre l'accès externe
+  },
 };
