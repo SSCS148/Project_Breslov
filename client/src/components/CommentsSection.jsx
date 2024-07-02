@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
+const apiBaseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
+
 const CommentsSection = ({ newComment }) => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
         const loadComments = async () => {
             try {
-                const response = await fetch('http://localhost:5002/api/comments');
+                const response = await fetch(`${apiBaseURL}/api/comments`);
                 if (response.ok) {
                     const data = await response.json();
                     // Sort comments so that the newest appear at the top
@@ -31,7 +33,7 @@ const CommentsSection = ({ newComment }) => {
     const likeComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5002/api/comments/like', {
+            const response = await fetch(`${apiBaseURL}/api/comments/like`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

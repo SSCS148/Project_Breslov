@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CommentForm from './CommentForm';
 import CommentsSection from './CommentsSection';
 import PostForm from './PostForm';
@@ -6,6 +6,7 @@ import PostsContainer from './PostsContainer';
 import '../stylesmain.css';
 import logo from '../assets/פסים-צבעוני-חדש.jpeg'; // Assurez-vous que le chemin est correct
 
+const apiBaseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
 
 const MainPage = () => {
   const [comments, setComments] = useState([]);
@@ -22,10 +23,9 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    // Fetch existing comments from the server when the component mounts
     const fetchComments = async () => {
       try {
-        const response = await fetch('http://localhost:5002/api/comments');
+        const response = await fetch(`${apiBaseURL}/api/comments`);
         if (response.ok) {
           const data = await response.json();
           setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -39,7 +39,7 @@ const MainPage = () => {
 
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:5002/api/posts');
+        const response = await fetch(`${apiBaseURL}/api/posts`);
         if (response.ok) {
           const data = await response.json();
           setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -66,6 +66,7 @@ const MainPage = () => {
       setPosts((prevPosts) => [newPost, ...prevPosts]);
     }
   }, [newPost]);
+
 
   return (
     <div>

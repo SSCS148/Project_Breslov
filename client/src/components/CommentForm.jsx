@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+const apiBaseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
+
 const CommentForm = ({ onCommentPosted }) => {
     const [comment, setComment] = useState('');
 
@@ -8,7 +10,7 @@ const CommentForm = ({ onCommentPosted }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5002/api/comments', {
+            const response = await fetch(`${apiBaseURL}/api/comments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

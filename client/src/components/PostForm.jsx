@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const apiBaseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
+
 const PostForm = ({ onPostCreated }) => {
   const [content, setContent] = useState('');
   const [photo, setPhoto] = useState(null);
@@ -16,7 +18,7 @@ const PostForm = ({ onPostCreated }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5002/api/posts', formData, {
+      const response = await axios.post(`${apiBaseURL}/api/posts`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
