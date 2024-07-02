@@ -11,6 +11,7 @@ module.exports = {
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),
+      allowedHosts: 'all',
     },
     hot: true,
     historyApiFallback: true,
