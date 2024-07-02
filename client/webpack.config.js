@@ -50,6 +50,6 @@ module.exports = {
     compress: true,
     port: 8080,
     historyApiFallback: true,
-    host: '0.0.0.0',  // Ajouté pour permettre l'accès externe
+    host: '0.0.0.0',
   },
 };
