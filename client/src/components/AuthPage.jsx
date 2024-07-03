@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles.css';
 
-const apiBaseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
-
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [name, setName] = useState('');
@@ -21,19 +19,14 @@ const AuthPage = () => {
         e.preventDefault();
         try {
             const url = isLogin 
-                ? `${apiBaseURL}/api/user/login`
-                : `${apiBaseURL}/api/user/register`;
+                ? `${process.env.REACT_APP_API_URL}/api/user/login`
+                : `${process.env.REACT_APP_API_URL}/api/user/register`;
 
             const data = isLogin 
                 ? { email, password }
                 : { name, email, password, age };
 
-            console.log('Sending request to:', url);
-            console.log('Request data:', data);
-
             const response = await axios.post(url, data);
-
-            console.log('Response:', response.data);
 
             setMessage(response.data.message);
 
@@ -49,7 +42,6 @@ const AuthPage = () => {
                 setMessage('Registration successful. Please log in.');
             }
         } catch (error) {
-            console.log('Error response:', error.response);
             setMessage(error.response?.data?.message || 'An error occurred');
         }
     };

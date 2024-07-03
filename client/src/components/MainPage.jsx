@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CommentForm from './CommentForm';
 import CommentsSection from './CommentsSection';
 import PostForm from './PostForm';
 import PostsContainer from './PostsContainer';
 import '../stylesmain.css';
-import logo from '../assets/פסים-צבעוני-חדש.jpeg'; // Assurez-vous que le chemin est correct
-
-const apiBaseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
+import logo from '../assets/פסים-צבעוני-חדש.jpeg';
 
 const MainPage = () => {
   const [comments, setComments] = useState([]);
@@ -25,7 +23,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`${apiBaseURL}/api/comments`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`);
         if (response.ok) {
           const data = await response.json();
           setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -39,7 +37,7 @@ const MainPage = () => {
 
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`${apiBaseURL}/api/posts`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts`);
         if (response.ok) {
           const data = await response.json();
           setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -67,7 +65,6 @@ const MainPage = () => {
     }
   }, [newPost]);
 
-
   return (
     <div>
       <header>
@@ -84,9 +81,9 @@ const MainPage = () => {
         </ul>
       </nav>
       <main>
-      <div className="logo-container">
-        <img src={logo} alt="Logo" className="logo" />
-      </div>
+        <div className="logo-container">
+          <img src={logo} alt="Logo" className="logo" />
+        </div>
         <section id="biography">
           <h2>Biography of Rabbi Nahman</h2>
           <p>Rabbi Nahman of Breslov was a great Hasidic master who lived from 1772 to 1810...</p>
