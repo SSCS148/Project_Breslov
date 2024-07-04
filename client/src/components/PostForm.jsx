@@ -8,6 +8,11 @@ const PostForm = ({ onPostCreated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!content) {
+        console.error('Content cannot be empty');
+        return;
+    }
+
     const formData = new FormData();
     formData.append('content', content);
     if (photo) {
@@ -29,7 +34,7 @@ const PostForm = ({ onPostCreated }) => {
     } catch (error) {
       console.error('Error posting message:', error.response ? error.response.data : error.message);
     }
-  };
+};
 
   return (
     <form onSubmit={handleSubmit}>

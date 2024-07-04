@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const postController = require('../controllers/post');
-const authenticateToken = require('../middlewares/auth'); // Ensure this path is correct
+const authenticateToken = require('../middlewares/auth');
 const multer = require('multer');
-const path = require('path'); // Ajout de l'importation de 'path'
+const path = require('path'); 
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
