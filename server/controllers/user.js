@@ -22,17 +22,26 @@ const generateTokens = (user) => {
 
 // Register a new user
 exports.register = async (req, res) => {
-  const { name, email, password, age } = req.body;
   try {
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      console.log(
-        `${ANSI_RED}[Register Attempt] Existing email: ${email}${ANSI_RESET}`
-      );
-      return res.status(400).json({ message: "Email already in use" });
+    const { name, email, password, age } = req.body;
+
+    // Vérifiez que tous les champs nécessaires sont remplis
+    if (!name || !email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Name, email and password are required" });
     }
 
+    // Vérifiez si l'utilisateur existe déjà
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    // Hash le mot de passe
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Créez l'utilisateur
     const newUser = await User.create({
       name,
       email,
@@ -40,45 +49,44 @@ exports.register = async (req, res) => {
       age,
     });
 
-    const tokens = generateTokens(newUser);
-
-    console.log(
-      `${ANSI_GREEN}[User Registered]\nName: ${name}\nEmail: ${email}\nAge: ${age}${ANSI_RESET}`
-    );
-    res.status(201).json({ message: "User registered successfully", tokens });
+    res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    console.error(`${ANSI_RED}Error registering user: ${error}${ANSI_RESET}`);
-    res.status(500).json({ message: "Internal server error" });
+    console.error("Error registering user:", error);
+    res.status(500).json({ message: "Failed to register user", error });
   }
 };
 
 // Login a user
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
   try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Email and password are required" });
+    }
+
     const user = await User.findOne({ where: { email } });
+
     if (!user) {
-      console.log(
-        `${ANSI_RED}[Login Attempt] Non-existent email: ${email}${ANSI_RESET}`
-      );
-      return res.status(400).json({ message: "User not found" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      console.log(
-        `${ANSI_RED}[Login Attempt] Invalid password for email: ${email}${ANSI_RESET}`
-      );
-      return res.status(400).json({ message: "Invalid password" });
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    const tokens = generateTokens(user);
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
-    console.log(`${ANSI_GREEN}[User Logged In]\nEmail: ${email}${ANSI_RESET}`);
-    res.status(200).json({ message: "Login successful", tokens });
+    res.json({ message: "Logged in successfully", token });
   } catch (error) {
-    console.error(`${ANSI_RED}Error logging in user: ${error}${ANSI_RESET}`);
-    res.status(500).json({ message: "Internal server error" });
+    console.error("Error logging in:", error);
+    res.status(500).json({ message: "Failed to log in", error });
   }
 };
 
