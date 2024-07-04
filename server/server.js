@@ -56,7 +56,7 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
 });
 
-// const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 5002;
 
 sequelize.sync({ alter: true }).then(async () => {
   console.log('Database synced');
