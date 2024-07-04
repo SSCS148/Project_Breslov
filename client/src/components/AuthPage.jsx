@@ -36,7 +36,7 @@ const AuthPage = () => {
         setMessage(response.data.message);
 
         if (isLogin) {
-          localStorage.setItem("token", response.data.tokens.accessToken);
+          localStorage.setItem("token", response.data.token);
           window.location.href = "/main"; // Rediriger vers MainPage après connexion
         } else {
           // Rediriger vers la page de connexion après enregistrement
@@ -51,6 +51,7 @@ const AuthPage = () => {
       }
     } catch (error) {
       console.log("Error response:", error.response);
+      console.error("Error:", error); // Ajout d'un journal pour afficher l'erreur complète
       setMessage(error.response?.data?.message || "An error occurred");
     }
   };
