@@ -5,10 +5,10 @@ const CommentForm = ({ onCommentPosted }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5002/api/comments', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ const CommentForm = ({ onCommentPosted }) => {
                 },
                 body: JSON.stringify({ comment, postId: 96 }), // Assurez-vous d'avoir un postId valide
             });
-
+    
             if (response.ok) {
                 const data = await response.json();
                 setComment('');

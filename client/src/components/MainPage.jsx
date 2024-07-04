@@ -22,38 +22,37 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    // Fetch existing comments from the server when the component mounts
     const fetchComments = async () => {
-      try {
-        const response = await fetch('http://localhost:5002/api/comments');
-        if (response.ok) {
-          const data = await response.json();
-          setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-        } else {
-          console.error('Error fetching comments:', response.statusText);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`);
+            if (response.ok) {
+                const data = await response.json();
+                setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+            } else {
+                console.error('Error fetching comments:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      }
     };
 
     const fetchPosts = async () => {
-      try {
-        const response = await fetch('http://localhost:5002/api/posts');
-        if (response.ok) {
-          const data = await response.json();
-          setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-        } else {
-          console.error('Error fetching posts:', response.statusText);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts`);
+            if (response.ok) {
+                const data = await response.json();
+                setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+            } else {
+                console.error('Error fetching posts:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
-      } catch (error) {
-        console.error('Error:', error);
-      }
     };
 
     fetchComments();
     fetchPosts();
-  }, []);
+}, []);
 
   useEffect(() => {
     if (newComment) {

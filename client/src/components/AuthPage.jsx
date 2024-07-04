@@ -19,8 +19,8 @@ const AuthPage = () => {
         e.preventDefault();
         try {
             const url = isLogin 
-                ? 'http://localhost:5002/api/user/login'
-                : 'http://localhost:5002/api/user/register';
+                ? `${process.env.REACT_APP_API_URL}/api/user/login`
+                : `${process.env.REACT_APP_API_URL}/api/user/register`;
     
             const data = isLogin 
                 ? { email, password }

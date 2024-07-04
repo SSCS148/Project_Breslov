@@ -10,7 +10,7 @@ const SecuredPage = () => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('http://localhost:5002/api/some-secured-route', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/some-secured-route`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -20,7 +20,7 @@ const SecuredPage = () => {
                 setMessage(error.response.data.message || 'An error occurred');
             }
         };
-
+    
         fetchData();
     }, []);
 
