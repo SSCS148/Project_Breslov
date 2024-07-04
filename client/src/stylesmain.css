@@ -270,7 +270,12 @@ footer {
   overflow-y: auto;
   border: 1px solid #ccc; /* Ajoutez des styles pour le conteneur si nécessaire */
   padding: 10px;
-  background-color: rgba(255,255,255,0.8); /* Pour une meilleure lisibilité */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Pour une meilleure lisibilité */
   border-radius: 7px;
 }
 .post {
@@ -403,9 +408,15 @@ footer {
 /* stylesmain.css */
 
 @keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .live {

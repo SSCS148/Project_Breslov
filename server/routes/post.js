@@ -1,13 +1,13 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const postController = require('../controllers/post');
-const authenticateToken = require('../middlewares/auth');
-const multer = require('multer');
-const path = require('path'); 
+const postController = require("../controllers/post");
+const authenticateToken = require("../middlewares/auth");
+const multer = require("multer");
+const path = require("path");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const uploadPath = path.join(__dirname, '../uploads');
+    const uploadPath = path.join(__dirname, "../uploads");
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
@@ -16,7 +16,12 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-router.post('/', authenticateToken, upload.single('photo'), postController.createPost);
-router.get('/', postController.getPosts);
+router.post(
+  "/",
+  authenticateToken,
+  upload.single("photo"),
+  postController.createPost
+);
+router.get("/", postController.getPosts);
 
 module.exports = router;
