@@ -1,16 +1,29 @@
-# Node modules
-node_modules/
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Build output
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Production
+build/
 dist/
 
-# Environment variables
+# Misc
+.DS_Store
 .env
 
-# Logs
-logs/
-*.log
+# Ignore the client and server specific node_modules
+client/node_modules/
+server/node_modules/
 
-# OS files
-.DS_Store
-Thumbs.db
+# Ignore build output in client
+client/build/
+client/dist/
+
+# Ignore database config
+server/config/database.js
