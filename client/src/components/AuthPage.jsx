@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles.css';
 
-const apiBaseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
-
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [name, setName] = useState('');
@@ -21,32 +19,35 @@ const AuthPage = () => {
         e.preventDefault();
         try {
             const url = isLogin 
-                ? `${apiBaseURL}/api/user/login`
-                : `${apiBaseURL}/api/user/register`;
-
+                ? 'http://localhost:5002/api/user/login'
+                : 'http://localhost:5002/api/user/register';
+    
             const data = isLogin 
                 ? { email, password }
                 : { name, email, password, age };
-
+    
             console.log('Sending request to:', url);
             console.log('Request data:', data);
-
+    
             const response = await axios.post(url, data);
-
-            console.log('Response:', response.data);
-
-            setMessage(response.data.message);
-
-            if (isLogin) {
-                localStorage.setItem('token', response.data.tokens.accessToken);
-                window.location.href = '/main'; // Rediriger vers MainPage après connexion
+    
+            if (response && response.data) {
+                console.log('Response:', response.data);
+                setMessage(response.data.message);
+    
+                if (isLogin) {
+                    localStorage.setItem('token', response.data.tokens.accessToken);
+                    window.location.href = '/main'; // Rediriger vers MainPage après connexion
+                } else {
+                    // Rediriger vers la page de connexion après enregistrement
+                    setIsLogin(true);
+                    setPassword('');
+                    setName('');
+                    setAge('');
+                    setMessage('Registration successful. Please log in.');
+                }
             } else {
-                // Rediriger vers la page de connexion après enregistrement
-                setIsLogin(true);
-                setPassword('');
-                setName('');
-                setAge('');
-                setMessage('Registration successful. Please log in.');
+                setMessage('Unexpected response format');
             }
         } catch (error) {
             console.log('Error response:', error.response);

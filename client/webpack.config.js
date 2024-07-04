@@ -2,11 +2,18 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/',
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    hot: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -25,11 +32,13 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpg|gif|jpeg)$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
-            options: {},
+            options: {
+              name: '[path][name].[ext]',
+            },
           },
         ],
       },
@@ -43,13 +52,4 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'build'),
-    },
-    compress: true,
-    port: 8080,
-    historyApiFallback: true,
-    host: '0.0.0.0',
-  },
 };

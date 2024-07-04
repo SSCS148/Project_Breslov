@@ -36,7 +36,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../client')));
 
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
@@ -46,16 +46,6 @@ app.use('/api/user', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use(express.json());
-
-// Route pour la racine
-app.get('/', (req, res) => {
-  res.send('Welcome to the API');
-});
-
-// Route pour tester les uploads
-app.get('/test-upload', (req, res) => {
-  res.sendFile(path.join(__dirname, '../uploads'));
-});
 
 app.get('/api/some-secured-route', verifyToken, (req, res) => {
   res.json({ message: 'Access granted', userId: req.userId });
@@ -90,4 +80,6 @@ sequelize.sync({ alter: true }).then(async () => {
   console.error('Error syncing database:', err);
 });
 
-module.exports = app;
+app.get('/test-upload', (req, res) => {
+  res.sendFile(path.join(__dirname, '../uploads'));
+});

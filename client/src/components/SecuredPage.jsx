@@ -1,7 +1,6 @@
+// src/components/SecuredPage.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
-const apiBaseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
 
 const SecuredPage = () => {
     const [data, setData] = useState(null);
@@ -11,14 +10,14 @@ const SecuredPage = () => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`${apiBaseURL}/api/some-secured-route`, {
+                const response = await axios.get('http://localhost:5002/api/some-secured-route', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
                 setData(response.data);
             } catch (error) {
-                setMessage(error.response?.data?.message || 'An error occurred');
+                setMessage(error.response.data.message || 'An error occurred');
             }
         };
 

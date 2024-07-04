@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import '../stylesmain.css';
 
-const apiBaseURL = process.env.REACT_APP_API_URL || 'http://localhost:5002';
-
 const PostsContainer = ({ posts }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -21,10 +19,10 @@ const PostsContainer = ({ posts }) => {
           <p>{post.content}</p>
           {post.photo && (
             <img
-              src={`${apiBaseURL}/uploads/${post.photo}`}
+              src={`http://localhost:5002/uploads/${post.photo}`}
               alt="Post"
               className="thumbnail"
-              onClick={() => handleImageClick(`${apiBaseURL}/uploads/${post.photo}`)}
+              onClick={() => handleImageClick(`http://localhost:5002/uploads/${post.photo}`)}
             />
           )}
         </div>
