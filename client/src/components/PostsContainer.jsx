@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "../stylesmain.css";
+import React, { useState } from 'react';
+import '../stylesmain.css';
 
 const PostsContainer = ({ posts }) => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -14,19 +14,15 @@ const PostsContainer = ({ posts }) => {
 
   return (
     <div className="posts-container">
-      {posts.map((post) => (
+      {posts.map(post => (
         <div key={post.id} className="post">
           <p>{post.content}</p>
           {post.photo && (
             <img
-              src={`${process.env.REACT_APP_API_URL}/uploads/${post.photo}`}
+              src={`https://project-breslov.onrender.com//uploads/${post.photo}`}
               alt="Post"
               className="thumbnail"
-              onClick={() =>
-                handleImageClick(
-                  `${process.env.REACT_APP_API_URL}/uploads/${post.photo}`
-                )
-              }
+              onClick={() => handleImageClick(`https://project-breslov.onrender.com//uploads/${post.photo}`)}
             />
           )}
         </div>
