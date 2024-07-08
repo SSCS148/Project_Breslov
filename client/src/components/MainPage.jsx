@@ -25,7 +25,7 @@ const MainPage = () => {
     // Fetch existing comments from the server when the component mounts
     const fetchComments = async () => {
       try {
-        const response = await fetch('https://project-breslov.onrender.com//api/comments');
+        const response = await fetch('https://project-breslov.onrender.com/api/comments');
         if (response.ok) {
           const data = await response.json();
           setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -39,7 +39,7 @@ const MainPage = () => {
 
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://project-breslov.onrender.com//api/posts');
+        const response = await fetch('https://project-breslov.onrender.com/api/posts');
         if (response.ok) {
           const data = await response.json();
           setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));

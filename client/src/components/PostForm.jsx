@@ -16,7 +16,7 @@ const PostForm = ({ onPostCreated }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('https://project-breslov.onrender.com//api/posts', formData, {
+      const response = await axios.post('https://project-breslov.onrender.com/api/posts', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

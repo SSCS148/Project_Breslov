@@ -19,8 +19,8 @@ const AuthPage = () => {
         e.preventDefault();
         try {
             const url = isLogin 
-                ? 'https://project-breslov.onrender.com//api/user/login'
-                : 'https://project-breslov.onrender.com//api/user/register';
+                ? 'https://project-breslov.onrender.com/api/user/login'
+                : 'https://project-breslov.onrender.com/api/user/register';
     
             const data = isLogin 
                 ? { email, password }

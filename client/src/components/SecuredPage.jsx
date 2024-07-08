@@ -10,7 +10,7 @@ const SecuredPage = () => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get('https://project-breslov.onrender.com//api/some-secured-route', {
+                const response = await axios.get('https://project-breslov.onrender.com/api/some-secured-route', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
