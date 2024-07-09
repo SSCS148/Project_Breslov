@@ -6,7 +6,7 @@ const CommentsSection = ({ newComment }) => {
     useEffect(() => {
         const loadComments = async () => {
             try {
-                const response = await fetch('https://project-breslov.onrender.com/api/comments');
+                const response = await fetch('http://localhost:5002/api/comments');
                 if (response.ok) {
                     const data = await response.json();
                     // Sort comments so that the newest appear at the top
@@ -31,7 +31,7 @@ const CommentsSection = ({ newComment }) => {
     const likeComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('https://project-breslov.onrender.com/api/comments/like', {
+            const response = await fetch('http://localhost:5002/api/comments/like', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

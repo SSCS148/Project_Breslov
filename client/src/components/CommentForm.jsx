@@ -8,7 +8,7 @@ const CommentForm = ({ onCommentPosted }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('https://project-breslov.onrender.com/api/comments', {
+            const response = await fetch('http://localhost:5002/api/comments', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
