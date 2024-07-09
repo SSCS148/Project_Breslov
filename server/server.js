@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./config/database');
-const multer = require('multer');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -17,8 +16,10 @@ const verifyToken = require('./middlewares/auth');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
@@ -27,15 +28,18 @@ const commentRoutes = require('./routes/comment');
 app.use('/api/user', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
-app.use(express.json());
 
 app.get('/api/some-secured-route', verifyToken, (req, res) => {
   res.json({ message: 'Access granted', userId: req.userId });
 });
 
-// Ajout d'un endpoint de test
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
+});
+
+// Serve the React app for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 const PORT = process.env.PORT || 5002;
