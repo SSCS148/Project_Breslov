@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./config/database');
 const path = require('path');
-const jwt = require('jsonwebtoken'); // Cette ligne est maintenant incluse
+const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -14,23 +14,22 @@ const app = express();
 const verifyToken = require('./middlewares/auth');
 
 const allowedOrigins = [
-  'https://project-breslov.onrender.com', 
+  'https://project-breslov.onrender.com',
   'http://localhost:3000'
 ];
 
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
-    credentials: true // This is important to allow credentials in CORS
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true // This is important to allow credentials in CORS
 }));
 
-// app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
