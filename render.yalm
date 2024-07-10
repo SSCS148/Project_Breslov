@@ -4,17 +4,17 @@ services:
     env: static
     staticPublishPath: client/dist
     buildCommand: cd client && npm install && npm run build
-    startCommand: cd client && npm install && npm run start
+    startCommand: npx serve -s client/dist
 
   - type: web
     name: backend
     env: node
     buildCommand: cd server && npm install
-    startCommand: cd server && npm start
+    startCommand: node server.js
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: your-database-name
-          property: connectionString
+        value: postgresql://Database_Project_owner:BvQ56KoscnJM@ep-tiny-firefly-a1wy3w9a.ap-southeast-1.aws.neon.tech/Database_Project?sslmode=require
       - key: JWT_SECRET
-        value: your_jwt_secret
+        value: 1b48d79ffcf4d39251563f8ebda257d1b65c0f687b43dca1d2436fc23968aff7671906fb9103bca29de795f294d82655629a66117e5d7ea9162ac5d1a07684f6
+      - key: JWT_REFRESH_SECRET
+        value: 6c12303eeff89868cead96a0ec7a75516a8c6d3dfbf55dc965fff8f6f1a211e9e1cae047383cecb4c383ab2a8f4bdafe4b26e684dcdb30fba2975cdab57ed815
