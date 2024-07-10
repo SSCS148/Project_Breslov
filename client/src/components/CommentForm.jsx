@@ -8,7 +8,7 @@ const CommentForm = ({ onCommentPosted }) => {
     
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`, {
+            const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -19,10 +19,10 @@ const PostsContainer = ({ posts }) => {
       <p>{post.content}</p>
       {post.photo && (
         <img
-          src={`${process.env.REACT_APP_API_URL}/uploads/${post.photo}`}
+          src={'https://my-backend-v6iy.onrender.com/uploads/${post.photo}'}
           alt="Post"
           className="thumbnail"
-          onClick={() => handleImageClick(`${process.env.REACT_APP_API_URL}/uploads/${post.photo}`)}
+          onClick={() => handleImageClick('https://my-backend-v6iy.onrender.com/uploads/${post.photo}')}
         />
       )}
     </div>

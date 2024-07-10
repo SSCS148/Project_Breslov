@@ -24,7 +24,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchComments = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`);
+            const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments');
             if (response.ok) {
                 const data = await response.json();
                 setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -38,7 +38,7 @@ const MainPage = () => {
 
     const fetchPosts = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/posts`);
+            const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts');
             if (response.ok) {
                 const data = await response.json();
                 setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));

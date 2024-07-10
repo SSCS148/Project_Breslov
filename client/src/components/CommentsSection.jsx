@@ -6,7 +6,7 @@ const CommentsSection = ({ newComment }) => {
     useEffect(() => {
         const loadComments = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`);
+                const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments');
                 if (response.ok) {
                     const data = await response.json();
                     // Sort comments so that the newest appear at the top
@@ -25,7 +25,7 @@ const CommentsSection = ({ newComment }) => {
     const likeComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments/like`, {
+            const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments/like', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

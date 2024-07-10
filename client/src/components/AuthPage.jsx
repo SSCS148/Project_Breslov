@@ -19,8 +19,8 @@ const AuthPage = () => {
     e.preventDefault();
     try {
         const url = isLogin 
-            ? `${process.env.REACT_APP_API_URL}/api/user/login`
-            : `${process.env.REACT_APP_API_URL}/api/user/register`;
+        ? 'https://my-backend-v6iy.onrender.com/api/user/login'
+        : 'https://my-backend-v6iy.onrender.com/api/user/register';
 
         const data = isLogin 
             ? { email, password }
