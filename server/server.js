@@ -12,12 +12,12 @@ const app = express();
 // Middleware to verify JWT
 const verifyToken = require('./middlewares/auth');
 
-const allowedOrigins = [ 'https://project-breslov.onrender.com',
-'http://localhost:5002', 'https://my-backend-v6iy.onrender.com/'];
+// Configure CORS to allow requests from your frontend domain
+const allowedOrigins = ['https://project-breslov.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
