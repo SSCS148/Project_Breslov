@@ -30,7 +30,7 @@ app.use(cors({
     credentials: true // This is important to allow credentials in CORS
 }));
 
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
