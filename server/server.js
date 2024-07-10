@@ -13,7 +13,7 @@ const app = express();
 const verifyToken = require('./middlewares/auth');
 
 const allowedOrigins = [ 'https://project-breslov.onrender.com',
-'http://localhost:5002'];
+'http://localhost:5002', 'https://my-backend-v6iy.onrender.com/'];
 
 app.use(cors({
   origin: function (origin, callback) {
