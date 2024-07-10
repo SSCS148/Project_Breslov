@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./config/database');
 const path = require('path');
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); // Cette ligne est maintenant incluse
 const dotenv = require('dotenv');
 
 dotenv.config();
