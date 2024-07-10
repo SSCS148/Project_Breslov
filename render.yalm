@@ -1,16 +1,15 @@
 services:
-  - type: web
+  - type: static
     name: frontend
     env: static
     staticPublishPath: client/dist
     buildCommand: cd client && npm install && npm run build
-    startCommand: npx serve -s client/dist
 
   - type: web
     name: backend
     env: node
     buildCommand: cd server && npm install
-    startCommand: node server.js
+    startCommand: cd server && npm start
     envVars:
       - key: DATABASE_URL
         value: postgresql://Database_Project_owner:BvQ56KoscnJM@ep-tiny-firefly-a1wy3w9a.ap-southeast-1.aws.neon.tech/Database_Project?sslmode=require

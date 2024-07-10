@@ -12,21 +12,17 @@ const app = express();
 // Middleware to verify JWT
 const verifyToken = require('./middlewares/auth');
 
-const allowedOrigins = [
-  'https://project-breslov.onrender.com',
-  'http://localhost:3000'
-];
+const allowedOrigins = ['https://project-breslov.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-    return callback(null, true);
   },
-  credentials: true // This is important to allow credentials in CORS
+  credentials: true,
 }));
 
 app.use(bodyParser.json());
