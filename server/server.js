@@ -12,7 +12,8 @@ const app = express();
 // Middleware to verify JWT
 const verifyToken = require('./middlewares/auth');
 
-const allowedOrigins = ['https://project-breslov.onrender.com'];
+const allowedOrigins = [ 'https://project-breslov.onrender.com',
+'http://localhost:5002'];
 
 app.use(cors({
   origin: function (origin, callback) {
