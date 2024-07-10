@@ -15,45 +15,45 @@ const AuthPage = () => {
         setShowPassword(!showPassword);
     };
 
-   const handleAuth = async (e) => {
-    e.preventDefault();
-    try {
-        const url = isLogin 
-        ? 'https://my-backend-v6iy.onrender.com/api/user/login'
-        : 'https://my-backend-v6iy.onrender.com/api/user/register';
-
-        const data = isLogin 
-            ? { email, password }
-            : { name, email, password, age };
-
-        console.log('Sending request to:', url);
-        console.log('Request data:', data);
-
-        const response = await axios.post(url, data);
-
-        if (response && response.data) {
-            console.log('Response:', response.data);
-            setMessage(response.data.message);
-
-            if (isLogin) {
-                localStorage.setItem('token', response.data.tokens.accessToken);
-                window.location.href = '/main'; // Rediriger vers MainPage après connexion
+    const handleAuth = async (e) => {
+        e.preventDefault();
+        try {
+            const url = isLogin 
+                ? 'https://my-backend-v6iy.onrender.com/api/user/login'
+                : 'https://my-backend-v6iy.onrender.com/api/user/register';
+    
+            const data = isLogin 
+                ? { email, password }
+                : { name, email, password, age };
+    
+            console.log('Sending request to:', url);
+            console.log('Request data:', data);
+    
+            const response = await axios.post(url, data);
+    
+            if (response && response.data) {
+                console.log('Response:', response.data);
+                setMessage(response.data.message);
+    
+                if (isLogin) {
+                    localStorage.setItem('token', response.data.tokens.accessToken);
+                    window.location.href = '/main'; // Rediriger vers MainPage après connexion
+                } else {
+                    // Rediriger vers la page de connexion après enregistrement
+                    setIsLogin(true);
+                    setPassword('');
+                    setName('');
+                    setAge('');
+                    setMessage('Registration successful. Please log in.');
+                }
             } else {
-                // Rediriger vers la page de connexion après enregistrement
-                setIsLogin(true);
-                setPassword('');
-                setName('');
-                setAge('');
-                setMessage('Registration successful. Please log in.');
+                setMessage('Unexpected response format');
             }
-        } else {
-            setMessage('Unexpected response format');
+        } catch (error) {
+            console.log('Error response:', error.response);
+            setMessage(error.response?.data?.message || 'An error occurred');
         }
-    } catch (error) {
-        console.log('Error response:', error.response);
-        setMessage(error.response?.data?.message || 'An error occurred');
-    }
-};
+    };
 
     const handleSwitchMode = () => {
         setIsLogin(!isLogin);
