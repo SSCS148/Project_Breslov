@@ -6,7 +6,7 @@ const CommentsSection = ({ newComment }) => {
     useEffect(() => {
         const loadComments = async () => {
             try {
-                const response = await fetch('http://localhost:5002/api/comments');
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments`);
                 if (response.ok) {
                     const data = await response.json();
                     // Sort comments so that the newest appear at the top
@@ -18,20 +18,14 @@ const CommentsSection = ({ newComment }) => {
                 console.error('Error:', error);
             }
         };
-
+    
         loadComments();
     }, []);
-
-    useEffect(() => {
-        if (newComment) {
-            setComments(prevComments => [newComment, ...prevComments]);
-        }
-    }, [newComment]);
-
+    
     const likeComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5002/api/comments/like', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/comments/like`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,7 +33,7 @@ const CommentsSection = ({ newComment }) => {
                 },
                 body: JSON.stringify({ commentId }),
             });
-
+    
             if (response.ok) {
                 const updatedComment = await response.json();
                 setComments(prevComments =>

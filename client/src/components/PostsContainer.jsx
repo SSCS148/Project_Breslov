@@ -12,29 +12,30 @@ const PostsContainer = ({ posts }) => {
     setSelectedImage(null);
   };
 
-  return (
-    <div className="posts-container">
-      {posts.map(post => (
-        <div key={post.id} className="post">
-          <p>{post.content}</p>
-          {post.photo && (
-            <img
-              src={`http://localhost:5002/uploads/${post.photo}`}
-              alt="Post"
-              className="thumbnail"
-              onClick={() => handleImageClick(`http://localhost:5002/uploads/${post.photo}`)}
-            />
-          )}
-        </div>
-      ))}
-      {selectedImage && (
-        <div className="modal" onClick={handleCloseModal}>
-          <span className="close">&times;</span>
-          <img className="modal-content" src={selectedImage} alt="Enlarged" />
-        </div>
+  return (   
+  <div className="posts-container">
+  {posts.map(post => (
+    <div key={post.id} className="post">
+      <p>{post.content}</p>
+      {post.photo && (
+        <img
+          src={`${process.env.REACT_APP_API_URL}/uploads/${post.photo}`}
+          alt="Post"
+          className="thumbnail"
+          onClick={() => handleImageClick(`${process.env.REACT_APP_API_URL}/uploads/${post.photo}`)}
+        />
       )}
     </div>
-  );
+  ))}
+  {selectedImage && (
+    <div className="modal" onClick={handleCloseModal}>
+      <span className="close">&times;</span>
+      <img className="modal-content" src={selectedImage} alt="Enlarged" />
+    </div>
+  )}
+</div>
+);
 };
+
 
 export default PostsContainer;

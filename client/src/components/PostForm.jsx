@@ -16,7 +16,7 @@ const PostForm = ({ onPostCreated }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5002/api/posts', formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/posts`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ const PostForm = ({ onPostCreated }) => {
     } catch (error) {
       console.error('Error posting message:', error.response ? error.response.data : error.message);
     }
-  };
+};
 
   return (
     <form onSubmit={handleSubmit}>
