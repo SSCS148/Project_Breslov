@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles.css';
 
@@ -10,6 +11,7 @@ const AuthPage = () => {
     const [age, setAge] = useState('');
     const [message, setMessage] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
@@ -37,7 +39,7 @@ const AuthPage = () => {
     
                 if (isLogin) {
                     localStorage.setItem('token', response.data.tokens.accessToken);
-                    window.location.href = '/main'; // Rediriger vers MainPage après connexion
+                    navigate('/main'); // Rediriger vers MainPage après connexion
                 } else {
                     // Rediriger vers la page de connexion après enregistrement
                     setIsLogin(true);
