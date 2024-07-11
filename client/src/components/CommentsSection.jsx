@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 const CommentsSection = ({ newComment }) => {
-    const [comments, setComments] = useState([null]);
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
         const loadComments = async () => {
