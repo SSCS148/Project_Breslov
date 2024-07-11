@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CommentForm = ({ onCommentPosted }) => {
+const CommentForm = ({ postId, onCommentPosted }) => {
     const [comment, setComment] = useState('');
 
     const handleSubmit = async (e) => {
@@ -14,7 +14,7 @@ const CommentForm = ({ onCommentPosted }) => {
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + token,
                 },
-                body: JSON.stringify({ comment, postId: 96 }), // Assurez-vous d'avoir un postId valide
+                body: JSON.stringify({ comment, postId }), // Assurez-vous d'avoir un postId valide
             });
     
             if (response.ok) {

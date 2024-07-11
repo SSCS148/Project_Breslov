@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-const CommentsSection = ({ newComment }) => {
+const CommentsSection = ({ postId, newComment }) => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
         const loadComments = async () => {
             try {
-                const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments');
+                const response = await fetch(`https://my-backend-v6iy.onrender.com/api/comments?postId=${postId}`);
                 if (response.ok) {
                     const data = await response.json();
                     // Sort comments so that the newest appear at the top
@@ -20,7 +20,13 @@ const CommentsSection = ({ newComment }) => {
         };
     
         loadComments();
-    }, []);
+    }, [postId]);
+
+    useEffect(() => {
+        if (newComment) {
+            setComments(prevComments => [newComment, ...prevComments]);
+        }
+    }, [newComment]);
     
     const likeComment = async (commentId) => {
         try {
@@ -48,7 +54,6 @@ const CommentsSection = ({ newComment }) => {
             console.error('Error:', error);
         }
     };
-
     return (
         <div>
             <h2>Comments</h2>
