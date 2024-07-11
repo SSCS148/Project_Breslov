@@ -13,7 +13,7 @@ const app = express();
 const verifyToken = require('./middlewares/auth');
 
 // Configure CORS to allow requests from your frontend domain
-const allowedOrigins = ['https://project-breslov.onrender.com', 'http://localhost:8080'];
+const allowedOrigins = ['https://project-breslov.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
