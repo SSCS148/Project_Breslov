@@ -46,7 +46,6 @@ const PostsContainer = () => {
                             className="thumbnail"
                         />
                     )}
-                    <CommentsSection postId={post.id} newComment={newComment} />
                 </div>
             ))}
         </div>
