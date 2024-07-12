@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const PostForm = ({ onPostCreated }) => {
     const [content, setContent] = useState('');
@@ -16,35 +15,39 @@ const PostForm = ({ onPostCreated }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post('https://my-backend-v6iy.onrender.com/api/posts', formData, {
+            const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts', {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`,
                 },
+                body: formData,
             });
 
-            onPostCreated(response.data);
-            setContent('');
-            setPhoto(null);
+            if (response.ok) {
+                const data = await response.json();
+                setContent('');
+                setPhoto(null);
+                onPostCreated(data);
+            } else {
+                console.error('Error posting message:', response.statusText);
+            }
         } catch (error) {
-            console.error('Error posting message:', error.response ? error.response.data : error.message);
+            console.error('Error:', error);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <form onSubmit={handleSubmit}>
             <div>
                 <textarea
+                    placeholder="What's on your mind?"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
-                    placeholder="What's on your mind?"
-                    required
                 />
             </div>
             <div>
                 <input
                     type="file"
-                    accept="image/*"
                     onChange={(e) => setPhoto(e.target.files[0])}
                 />
             </div>
