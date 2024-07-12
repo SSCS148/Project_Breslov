@@ -6,6 +6,7 @@ const PostsContainer = () => {
     const [posts, setPosts] = useState([]);
     const [newComment, setNewComment] = useState(null);
     const [newPost, setNewPost] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -33,6 +34,14 @@ const PostsContainer = () => {
         setNewComment(comment);
     };
 
+    const handleImageClick = (imageUrl) => {
+        setSelectedImage(imageUrl);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedImage(null);
+    };
+
     return (
         <div className="posts-container">
             <PostForm onPostCreated={handlePostCreated} />
@@ -44,10 +53,18 @@ const PostsContainer = () => {
                             src={`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`}
                             alt="Post"
                             className="thumbnail"
+                            onClick={() => handleImageClick(`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`)}
                         />
                     )}
+                    <CommentsSection postId={post.id} newComment={newComment} />
                 </div>
             ))}
+            {selectedImage && (
+                <div className="modal" onClick={handleCloseModal}>
+                    <span className="close">&times;</span>
+                    <img className="modal-content" src={selectedImage} alt="Enlarged" />
+                </div>
+            )}
         </div>
     );
 };
