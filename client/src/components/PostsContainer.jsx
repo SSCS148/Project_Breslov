@@ -56,7 +56,6 @@ const PostsContainer = () => {
                             onClick={() => handleImageClick(`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`)}
                         />
                     )}
-                    <CommentsSection postId={post.id} newComment={newComment} />
                 </div>
             ))}
             {selectedImage && (
