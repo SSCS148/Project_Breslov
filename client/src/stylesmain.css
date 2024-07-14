@@ -4,8 +4,7 @@ body {
   font-family: "Kunstler Script", cursive;
   margin: 0;
   padding: 0;
-  background: url("https://i.etsystatic.com/18965517/r/il/91e1d2/3642966670/il_fullxfull.3642966670_c485.jpg")
-    no-repeat center center fixed;
+  background: url("https://i.etsystatic.com/18965517/r/il/91e1d2/3642966670/il_fullxfull.3642966670_c485.jpg") no-repeat center center fixed;
   background-size: cover;
   color: #333;
 }
@@ -14,6 +13,15 @@ body {
 .logo-container {
   text-align: center;
   margin-top: 10px;
+}
+
+h1{
+
+  color: #ffffff;
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 7px 5px 44px 9px rgb(255, 255, 255);
 }
 
 .site-logo {
@@ -35,16 +43,15 @@ header h1 {
   margin: 0;
   font-size: 40px;
   text-align: center;
-  width: 100%;
+  width: 73%;
 }
 
 nav {
   background-color: #003366e8;
-  width: 100%;
+  width: 105.29%;
   top: 95px;
   z-index: 1000;
   position: relative;
-  border-radius: 7px;
 }
 
 nav ul {
@@ -209,6 +216,7 @@ footer {
   padding: 10px;
   border-radius: 5px;
   background-color: #f9f9f900;
+  padding: 20px 5px;
 }
 
 .fullscreen-img {
@@ -308,62 +316,62 @@ footer {
 
 /* Responsive styles */
 @media (max-width: 1200px) {
-  nav ul li {
+  .navbar nav ul li {
     margin: 0 0.5rem;
   }
 
-  .logo {
+  .logo-Breslev {
     width: 80px;
   }
 }
 
 @media (max-width: 992px) {
-  header h1 {
+  .navbar h1 {
     font-size: 1.5rem;
   }
 
-  nav ul li {
+  .navbar nav ul li {
     display: block;
     margin: 0.5rem 0;
   }
 
-  .logo {
+  .logo-Breslev {
     width: 60px;
   }
 }
 
 @media (max-width: 768px) {
-  header h1 {
+  .navbar h1 {
     font-size: 1.2rem;
   }
 
-  main {
+  .content {
     padding: 1rem;
   }
 
-  section {
+  .content section {
     margin-bottom: 1rem;
   }
 
-  .logo {
+  .logo-Breslev {
     width: 50px;
   }
 }
 
 @media (max-width: 576px) {
-  nav {
+  .navbar {
     padding: 0.5rem;
   }
 
-  nav ul li {
+  .navbar nav ul li {
     margin: 0.3rem 0;
   }
 
-  main {
+  .content {
     padding: 0.5rem;
   }
 
-  .logo {
+  .logo-Breslev {
     width: 40px;
   }
 }

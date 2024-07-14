@@ -69,7 +69,7 @@ const MainPage = () => {
   return (
     <div>
       <header>
-        <h1>Rabbi Nahman and Breslov Hasidism</h1>
+        <h1>Rabbi Nahman and Breslev Hasidism</h1>
       </header>
       <nav>
         <ul>
@@ -87,7 +87,7 @@ const MainPage = () => {
       </div>
         <section id="biography">
           <h2>Biography of Rabbi Nahman</h2>
-          <p>Rabbi Nahman of Breslov was a great Hasidic master who lived from 1772 to 1810...</p>
+          <p>Rabbi Nahman of Breslev was a great Hasidic master who lived from 1772 to 1810...</p>
         </section>
         <section id="teachings">
           <h2>Teachings of Rabbi Nahman</h2>
@@ -98,8 +98,8 @@ const MainPage = () => {
           <p>There are many stories and legends about the miracles performed by Rabbi Nahman...</p>
         </section>
         <section id="principles">
-          <h2>Principles of Breslov Hasidism</h2>
-          <p>Breslov Hasidism focuses on simplicity, sincerity, and joy...</p>
+          <h2>Principles of Breslev Hasidism</h2>
+          <p>Breslev Hasidism focuses on simplicity, sincerity, and joy...</p>
         </section>
         <section id="celebrations">
           <h2>Celebrations and Pilgrimages</h2>
@@ -115,7 +115,7 @@ const MainPage = () => {
         </section>
       </main>
       <footer>
-        <p>&copy; 2024 Rabbi Nahman and Breslov Hasidism. All rights reserved.</p>
+        <p>&copy; 2024 Rabbi Nahman and Breslev Hasidism. All rights reserved.</p>
       </footer>
     </div>
   );
