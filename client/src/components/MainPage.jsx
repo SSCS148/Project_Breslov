@@ -111,7 +111,6 @@ const MainPage = () => {
         </section>
         <section id="communication">
           <h2>Chat <div className="live">Live</div> {/* Logo "Live" */}</h2>
-          <PostForm onPostCreated={handlePostCreated} />
           <PostsContainer posts={posts} />
         </section>
       </main>
