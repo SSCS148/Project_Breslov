@@ -188,9 +188,8 @@ footer {
   vertical-align: top;
 }
 
-/* styles.css */
 .comment-container {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.725);
   border: 1px solid #ccc;
   padding: 10px;
   margin: 10px 0;
@@ -210,35 +209,6 @@ footer {
   padding: 10px;
   border-radius: 5px;
   background-color: #f9f9f900;
-  padding: 20px 5px;
-}
-
-#commentsBanner {
-  max-height: 400px;
-  overflow-y: hidden;
-  border: 2px outset darkblue;
-  padding: 50px;
-  border-radius: 5px;
-  background-color: #f9f9f900;
-  position: relative;
-}
-
-#commentsSection {
-  position: relative;
-  width: 100%;
-  animation: scrollComments 10s linear infinite;
-}
-
-.comment-container {
-  background-color: rgba(255, 255, 255, 0.725);
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px0;
-  border-radius: 5px;
-}
-
-.comment-container p {
-  margin: 5px 0;
 }
 
 .fullscreen-img {
@@ -265,29 +235,27 @@ footer {
 }
 
 .posts-container {
-  max-height: 600px; /* Ajustez la hauteur selon vos besoins */
+  max-height: 600px;
   overflow-y: auto;
-  border: 1px solid #ccc; /* Ajoutez des styles pour le conteneur si nécessaire */
+  border: 1px solid #ccc;
   padding: 10px;
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.8
-  ); /* Pour une meilleure lisibilité */
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 7px;
 }
+
 .post {
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #ddd;
-  background-color: #fff; /* Couleur de fond pour chaque post */
+  background-color: #fff;
   border-radius: 7px;
 }
+
 .post img {
   max-width: 100%;
   height: auto;
 }
+
 .thumbnail {
   width: 150px;
   height: auto;
@@ -333,11 +301,6 @@ footer {
   max-height: 80%;
 }
 
-.logo-container {
-  text-align: center;
-  margin: 20px 0;
-}
-
 .logo {
   max-width: 200px;
   height: auto;
@@ -345,81 +308,80 @@ footer {
 
 /* Responsive styles */
 @media (max-width: 1200px) {
-  .navbar nav ul li {
+  nav ul li {
     margin: 0 0.5rem;
   }
 
-  .logo-breslov {
+  .logo {
     width: 80px;
   }
 }
 
 @media (max-width: 992px) {
-  .navbar h1 {
+  header h1 {
     font-size: 1.5rem;
   }
 
-  .navbar nav ul li {
+  nav ul li {
     display: block;
     margin: 0.5rem 0;
   }
 
-  .logo-breslov {
+  .logo {
     width: 60px;
   }
 }
 
 @media (max-width: 768px) {
-  .navbar h1 {
-  font-size: 1.2rem;
+  header h1 {
+    font-size: 1.2rem;
   }
-  
-  .content {
-  padding: 1rem;
+
+  main {
+    padding: 1rem;
   }
-  
-  .content section {
-  margin-bottom: 1rem;
+
+  section {
+    margin-bottom: 1rem;
   }
-  
-  .logo-breslov {
-  width: 50px;
+
+  .logo {
+    width: 50px;
   }
+}
+
+@media (max-width: 576px) {
+  nav {
+    padding: 0.5rem;
   }
-  
-  @media (max-width: 576px) {
-  .navbar {
-  padding: 0.5rem;
+
+  nav ul li {
+    margin: 0.3rem 0;
   }
-  
-  .navbar nav ul li {
-  margin: 0.3rem 0;
+
+  main {
+    padding: 0.5rem;
   }
-  
-  .content {
-  padding: 0.5rem;
+
+  .logo {
+    width: 40px;
   }
-  
-  .logo-breslov {
-  width: 40px;
-  }
-  }
-  /* stylesmain.css */
-  
-  @keyframes blink {
+}
+
+@keyframes blink {
   0% {
-  opacity: 1;
+    opacity: 1;
   }
   50% {
-  opacity: 0;
+    opacity: 0;
   }
   100% {
-  opacity: 1;
+    opacity: 1;
   }
-  }
-  
-  .live {
+}
+
+.live {
   font-size: 1.5rem;
   color: green;
   animation: blink 1s infinite;
-  }
+}
