@@ -44,7 +44,6 @@ const PostsContainer = () => {
 
     return (
         <div className="posts-container">
-            <PostForm onPostCreated={handlePostCreated} />
             {posts.map(post => (
                 <div key={post.id} className="post">
                     <p>{post.content}</p>
