@@ -413,6 +413,7 @@ footer {
   width: 150px;
   height: auto;
   transition: transform 0.2s ease-in-out;
+  border-radius: 5px;
 }
 
 .book img:hover {
