@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: 'https://project-breslov.onrender.com',
+        origin: 'http://localhost:8080',
         methods: ['GET', 'POST'],
     },
 });
