@@ -43,7 +43,7 @@ header h1 {
   margin: 0;
   font-size: 40px;
   text-align: center;
-  width: 73%;
+  width: 77.3%;
 }
 
 nav {
@@ -422,4 +422,14 @@ footer {
 
 .book-container.expanded {
   max-height: 1000px; /* Adjust based on the content */
+}
+
+.books-container, .stories-container, .principles-content, .celebrations-content, .community-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+}
+
+.books-container.show, .stories-container.show, .principles-content.show, .celebrations-content.show, .community-content.show {
+  max-height: 1000px; /* Adjust as needed */
 }

@@ -123,6 +123,7 @@ const MainPage = () => {
         </section>
         <section id="teachings">
           <h2 onClick={toggleTeachings} style={{ cursor: 'pointer' }}>Teachings of Rabbi Nahman</h2>
+          <p>Rabbi Nahman taught the importance of prayer, joy, and trust in God...</p>
           <div className={`book-container ${showTeachings ? 'expanded' : ''}`}>
             <div className="book">
               <a href={likouteyMoharanPdf} target="_blank" rel="noopener noreferrer">
@@ -170,6 +171,7 @@ const MainPage = () => {
         </section>
         <section id="stories">
           <h2 onClick={toggleStories} style={{ cursor: 'pointer' }}>Stories and Legends</h2>
+          <p>There are many stories and legends about the miracles performed by Rabbi Nahman...</p>
           <div className={`book-container ${showStories ? 'expanded' : ''}`}>
             <div className="book">
               <a href={sipoureiMaasiotPdf} target="_blank" rel="noopener noreferrer">
