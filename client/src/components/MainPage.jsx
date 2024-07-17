@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CommentForm from './CommentForm';
 import CommentsSection from './CommentsSection';
 import PostForm from './PostForm';
@@ -98,122 +99,128 @@ const MainPage = () => {
     setShowStories(!showStories);
   };
 
-  return (
-    <div>
-      <header>
-        <h1>Rabbi Nahman and Breslev Hasidism</h1>
-      </header>
-      <nav>
-        <ul>
-          <li><a href="#biography">Biography</a></li>
-          <li><a href="#teachings">Teachings</a></li>
-          <li><a href="#stories">Stories</a></li>
-          <li><a href="#principles">Principles</a></li>
-          <li><a href="#celebrations">Celebrations</a></li>
-          <li><a href="#communication">Community</a></li>
-        </ul>
-      </nav>
-      <main>
-        <div className="logo-container">
-          <img src={logo} alt="Logo" className="logo" />
-        </div>
-        <section id="biography">
-          <h2>Biography of Rabbi Nahman</h2>
-          <p>Rabbi Nahman of Breslev was a great Hasidic master who lived from 1772 to 1810...</p>
-        </section>
-        <section id="teachings">
-          <h2 onClick={toggleTeachings} style={{ cursor: 'pointer' }}>Teachings of Rabbi Nahman</h2>
-          <p>Rabbi Nahman taught the importance of prayer, joy, and trust in God...</p>
-          <div className={`book-container ${showTeachings ? 'expanded' : ''}`}>
-            <div className="book">
-              <a href={likouteyMoharanPdf} target="_blank" rel="noopener noreferrer">
-                <img src={likouteyMoharanImg} alt="Likoutey Moharan" />
-              </a>
-              <p>Likoutey Moharan</p>
-            </div>
-            <div className="book">
-              <a href={seferHamidotPdf} target="_blank" rel="noopener noreferrer">
-                <img src={seferHamidotImg} alt="Sefer Hamidot" />
-              </a>
-              <p>Sefer Hamidot</p>
-            </div>
-            <div className="book">
-              <a href={sihotHaranPdf} target="_blank" rel="noopener noreferrer">
-                <img src={sihotHaranImg} alt="Sihot Haran" />
-              </a>
-              <p>Sihot Haran</p>
-            </div>
-            <div className="book">
-              <a href={meshivatNefeshPdf} target="_blank" rel="noopener noreferrer">
-                <img src={meshivatNefeshImg} alt="Meshivat Nefesh" />
-              </a>
-              <p>Meshivat Nefesh</p>
-            </div>
-            <div className="book">
-              <a href={likouteyEtsotPdf} target="_blank" rel="noopener noreferrer">
-                <img src={likouteyEtsotImg} alt="Likoutey Etsot" />
-              </a>
-              <p>Likoutey Etsot</p>
-            </div>
-            <div className="book">
-              <a href={tikunHaklaliPdf} target="_blank" rel="noopener noreferrer">
-                <img src={tikunHaklaliImg} alt="Tikun Haklali" />
-              </a>
-              <p>Tikun Haklali</p>
-            </div>
-            <div className="book">
-                <a href={likouteyTefilotPdf} target="_blank" rel="noopener noreferrer">
-                  <img src={likouteyTefilotImg} alt="likoutey Tefilot" />
-                  <p>Likoutey Tefilot</p>
-                </a>
-              </div>
+return (
+    <Router>
+      <div>
+        <header>
+          <h1>Rabbi Nahman and Breslev Hasidism</h1>
+          <div className="logo-container">
+            <img src={logo} alt="Logo" className="logo" />
           </div>
-        </section>
-        <section id="stories">
-          <h2 onClick={toggleStories} style={{ cursor: 'pointer' }}>Stories and Legends</h2>
-          <p>There are many stories and legends about the miracles performed by Rabbi Nahman...</p>
-          <div className={`book-container ${showStories ? 'expanded' : ''}`}>
-            <div className="book">
-              <a href={sipoureiMaasiotPdf} target="_blank" rel="noopener noreferrer">
-                <img src={sipoureiMaasiotImg} alt="Sipourei Maasiot" />
-              </a>
-              <p>Sipourei Maasiot</p>
-            </div>
-            <div className="book">
-                <a href={hayeMoharanPdf} target="_blank" rel="noopener noreferrer">
-                  <img src={hayeMoharanImg} alt="Haye Moharan" />
-                  <p>Haye Moharan</p>
-                </a>
-              </div>
-              <div className="book">
-                <a href={yemeMoharanatPdf} target="_blank" rel="noopener noreferrer">
-                  <img src={yemeMoharanatImg} alt="Yeme Moharanat" />
-                  <p>Yeme Moharanat</p>
-                </a>
-              </div>
-          </div>
-        </section>
-        <section id="principles">
-          <h2>Principles of Breslev Hasidism</h2>
-          <p>Breslev Hasidism focuses on simplicity, sincerity, and joy...</p>
-        </section>
-        <section id="celebrations">
-          <h2>Celebrations and Pilgrimages</h2>
-          <p>Every year, thousands of people travel to Uman for Rosh Hashanah...</p>
-        </section>
-        <section id="comments">
-          <CommentForm onCommentPosted={handleCommentPosted} />
-          <CommentsSection newComment={newComment} comments={comments} setComments={setComments} />
-        </section>
-        <section id="communication">
-          <h2>Chat <div className="live">Live</div></h2>
-          <PostsContainer posts={posts} />
-        </section>
-      </main>
-      <footer>
-        <p>&copy; 2024 Rabbi Nahman and Breslev Hasidism. All rights reserved.</p>
-      </footer>
-    </div>
+        </header>
+        <nav>
+          <ul>
+            <li><a href="#biography">Biography</a></li>
+            <li><a href="#teachings">Teachings</a></li>
+            <li><a href="#stories">Stories</a></li>
+            <li><a href="#principles">Principles</a></li>
+            <li><a href="#celebrations">Celebrations</a></li>
+            <li><a href="#communication">Community</a></li>
+          </ul>
+        </nav>
+        <main>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <section id="biography">
+                  <h2>Biography of Rabbi Nahman</h2>
+                  <p>Rabbi Nahman of Breslev was a great Hasidic master who lived from 1772 to 1810...</p>
+                </section>
+                <section id="teachings">
+                  <h2 onClick={toggleTeachings} style={{ cursor: 'pointer' }}>Teachings of Rabbi Nahman</h2>
+                  <div className={`book-container ${showTeachings ? 'expanded' : ''}`}>
+                    <div className="book">
+                      <a href={likouteyMoharanPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={likouteyMoharanImg} alt="Likoutey Moharan" />
+                      </a>
+                      <p>Likoutey Moharan</p>
+                    </div>
+                    <div className="book">
+                      <a href={seferHamidotPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={seferHamidotImg} alt="Sefer Hamidot" />
+                      </a>
+                      <p>Sefer Hamidot</p>
+                    </div>
+                    <div className="book">
+                      <a href={sihotHaranPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={sihotHaranImg} alt="Sihot Haran" />
+                      </a>
+                      <p>Sihot Haran</p>
+                    </div>
+                    <div className="book">
+                      <a href={meshivatNefeshPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={meshivatNefeshImg} alt="Meshivat Nefesh" />
+                      </a>
+                      <p>Meshivat Nefesh</p>
+                    </div>
+                    <div className="book">
+                      <a href={likouteyEtsotPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={likouteyEtsotImg} alt="Likoutey Etsot" />
+                      </a>
+                      <p>Likoutey Etsot</p>
+                    </div>
+                    <div className="book">
+                      <a href={tikunHaklaliPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={tikunHaklaliImg} alt="Tikun Haklali" />
+                      </a>
+                      <p>Tikun Haklali</p>
+                    </div>
+                    <div className="book">
+                      <a href={likouteyTefilotPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={likouteyTefilotImg} alt="Likoutey Tefilot" />
+                      </a>
+                      <p>Likoutey Tefilot</p>
+                    </div>
+                  </div>
+                </section>
+                <section id="stories">
+                  <h2 onClick={toggleStories} style={{ cursor: 'pointer' }}>Stories and Legends</h2>
+                  <div className={`book-container ${showStories ? 'expanded' : ''}`}>
+                    <div className="book">
+                      <a href={sipoureiMaasiotPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={sipoureiMaasiotImg} alt="Sipourei Maasiot" />
+                      </a>
+                      <p>Sipourei Maasiot</p>
+                    </div>
+                    <div className="book">
+                      <a href={hayeMoharanPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={hayeMoharanImg} alt="Haye Moharan" />
+                      </a>
+                      <p>Haye Moharan</p>
+                    </div>
+                    <div className="book">
+                      <a href={yemeMoharanatPdf} target="_blank" rel="noopener noreferrer">
+                        <img src={yemeMoharanatImg} alt="Yeme Moharanat" />
+                      </a>
+                      <p>Yeme Moharanat</p>
+                    </div>
+                  </div>
+                </section>
+                <section id="principles">
+                  <h2>Principles of Breslev Hasidism</h2>
+                  <p>Breslev Hasidism focuses on simplicity, sincerity, and joy...</p>
+                </section>
+                <section id="celebrations">
+                  <h2>Celebrations and Pilgrimages</h2>
+                  <p>Every year, thousands of people travel to Uman for Rosh Hashanah...</p>
+                </section>
+                <section id="comments">
+                  <CommentForm onCommentPosted={handleCommentPosted} />
+                  <CommentsSection newComment={newComment} comments={comments} setComments={setComments} />
+                </section>
+                <section id="communication">
+                  <h2>Chat <div className="live">Live</div></h2>
+                  <PostsContainer posts={posts} />
+                </section>
+              </>
+            } />
+          </Routes>
+        </main>
+        <footer>
+          <p>&copy; 2024 Rabbi Nahman and Breslev Hasidism. All rights reserved.</p>
+        </footer>
+      </div>
+    </Router>
   );
 };
 

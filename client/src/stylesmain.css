@@ -11,8 +11,11 @@ body {
 
 /* Nouveau style pour le logo */
 .logo-container {
-  text-align: center;
-  margin-top: 10px;
+  position: fixed;
+  top: 10px;
+  left: 23px;
+  text-align: left;
+  margin: 0;
 }
 
 h1{
@@ -310,7 +313,7 @@ footer {
 }
 
 .logo {
-  max-width: 200px;
+  max-width: 300px;
   height: auto;
 }
 

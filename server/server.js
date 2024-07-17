@@ -4,10 +4,14 @@ const cors = require('cors');
 const sequelize = require('./config/database');
 const path = require('path');
 const dotenv = require('dotenv');
+const http = require('http');
+const { Server } = require('socket.io');
 
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
 // Middleware to verify JWT
 const verifyToken = require('./middlewares/auth');
@@ -78,11 +82,28 @@ sequelize.sync({ alter: true }).then(async () => {
     });
   }
 
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }).catch((err) => {
   console.error('Error syncing database:', err);
 });
 
 app.get('/test-upload', (req, res) => {
   res.sendFile(path.join(__dirname, '../uploads'));
+});
+
+// Socket.IO for real-time updates
+io.on('connection', (socket) => {
+  console.log('a user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+  socket.on('new-post', (post) => {
+    io.emit('new-post', post);
+  });
+
+  socket.on('new-comment', (comment) => {
+    io.emit('new-comment', comment);
+  });
 });
