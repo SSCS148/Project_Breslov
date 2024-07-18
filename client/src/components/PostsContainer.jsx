@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PostForm from './PostForm';
-import CommentsSection from './CommentsSection';
 import io from 'socket.io-client';
 
-const socket = io('https://my-backend-v6iy.onrender.com'); // Ensure this URL matches your backend
+const socket = io('https://my-backend-v6iy.onrender.com'); // Assurez-vous que cette URL correspond à votre backend
 
 const PostsContainer = () => {
     const [posts, setPosts] = useState([]);

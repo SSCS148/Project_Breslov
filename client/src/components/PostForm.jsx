@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import io from 'socket.io-client';
+
+const socket = io('https://my-backend-v6iy.onrender.com');
 
 const PostForm = ({ onPostCreated }) => {
     const [content, setContent] = useState('');
@@ -28,6 +31,7 @@ const PostForm = ({ onPostCreated }) => {
                 setContent('');
                 setPhoto(null);
                 onPostCreated(data);
+                socket.emit('new-post', data);
             } else {
                 console.error('Error posting message:', response.statusText);
             }

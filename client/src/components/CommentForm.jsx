@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import io from 'socket.io-client';
+
+const socket = io('https://my-backend-v6iy.onrender.com');
 
 const CommentForm = ({ postId, onCommentPosted }) => {
     const [comment, setComment] = useState('');
@@ -14,13 +17,14 @@ const CommentForm = ({ postId, onCommentPosted }) => {
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + token,
                 },
-                body: JSON.stringify({ comment, postId : 96 }), // Assurez-vous d'avoir un postId valide
+                body: JSON.stringify({ comment, postId: 96 }), // Assurez-vous d'avoir un postId valide
             });
     
             if (response.ok) {
                 const data = await response.json();
                 setComment('');
                 onCommentPosted(data);
+                socket.emit('new-comment', data);
             } else {
                 const errorData = await response.json();
                 console.error('Error posting comment:', errorData);
@@ -29,6 +33,7 @@ const CommentForm = ({ postId, onCommentPosted }) => {
             console.error('Error:', error);
         }
     };
+
     return (
         <div>
             <h2>Post a comment</h2>

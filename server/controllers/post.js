@@ -1,5 +1,6 @@
 // controllers/post.js
 const Post = require('../models/Post');
+const { io } = require('../server'); // Assurez-vous d'importer io depuis votre serveur
 
 exports.createPost = async (req, res) => {
   try {
@@ -17,6 +18,7 @@ exports.createPost = async (req, res) => {
       photo,
       userId,
     });
+    io.emit('new-post', newPost); // Émettre l'événement de nouveau post
 
     res.status(201).json(newPost);
   } catch (error) {

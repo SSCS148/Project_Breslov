@@ -1,6 +1,7 @@
 // server/controllers/comment.js
 const Comment = require("../models/Comment");
 const User = require("../models/User");
+const { io } = require('../server'); // Assurez-vous d'importer io depuis votre serveur
 
 exports.createComment = async (req, res) => {
   try {
@@ -11,7 +12,7 @@ exports.createComment = async (req, res) => {
       comment,
       userId,
     });
-
+    io.emit('new-comment', newComment);
     res.status(201).json(newComment);
   } catch (error) {
     res.status(500).json({ error: "Error creating comment" });

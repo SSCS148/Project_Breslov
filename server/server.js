@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:8080',
+        origin: ['http://localhost:8080', 'https://project-breslov.onrender.com'],
         methods: ['GET', 'POST'],
     },
 });
@@ -104,3 +104,5 @@ io.on('connection', (socket) => {
         console.log('User disconnected');
     });
 });
+
+module.exports = { app, server, io };
