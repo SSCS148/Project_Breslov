@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-
-const socket = io('https://my-backend-v6iy.onrender.com');
 
 const CommentsSection = ({ postId, newComment }) => {
     const [comments, setComments] = useState([]);
@@ -23,16 +20,6 @@ const CommentsSection = ({ postId, newComment }) => {
         };
     
         loadComments();
-
-        socket.on('new-comment', (comment) => {
-            if (comment.postId === postId) {
-                setComments((prevComments) => [comment, ...prevComments]);
-            }
-        });
-
-        return () => {
-            socket.off('new-comment');
-        };
     }, [postId]);
 
     useEffect(() => {
@@ -67,7 +54,6 @@ const CommentsSection = ({ postId, newComment }) => {
             console.error('Error:', error);
         }
     };
-
     return (
         <div>
             <h2>Comments</h2>

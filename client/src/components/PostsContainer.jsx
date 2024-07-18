@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PostForm from './PostForm';
-import io from 'socket.io-client';
-
-const socket = io('https://my-backend-v6iy.onrender.com'); // Assurez-vous que cette URL correspond à votre backend
+import CommentsSection from './CommentsSection';
 
 const PostsContainer = () => {
     const [posts, setPosts] = useState([]);
@@ -26,34 +24,14 @@ const PostsContainer = () => {
         };
 
         fetchPosts();
-
-        // Listen for new posts and comments
-        socket.on('new-post', (post) => {
-            setPosts((prevPosts) => [post, ...prevPosts]);
-        });
-
-        socket.on('new-comment', (comment) => {
-            setPosts((prevPosts) => 
-                prevPosts.map(post => 
-                    post.id === comment.postId ? { ...post, comments: [...post.comments, comment] } : post
-                )
-            );
-        });
-
-        return () => {
-            socket.off('new-post');
-            socket.off('new-comment');
-        };
     }, [newPost]);
 
     const handlePostCreated = (post) => {
         setNewPost(post);
-        socket.emit('new-post', post);
     };
 
     const handleCommentPosted = (comment) => {
         setNewComment(comment);
-        socket.emit('new-comment', comment);
     };
 
     const handleImageClick = (imageUrl) => {
