@@ -3,7 +3,7 @@ import PostForm from './PostForm';
 import CommentsSection from './CommentsSection';
 import io from 'socket.io-client';
 
-const socket = io('https://project-breslov.onrender.com');
+const socket = io('https://project-breslov.onrender.com'); // Assurez-vous que cette URL correspond à votre backend
 
 const PostsContainer = () => {
     const [posts, setPosts] = useState([]);
@@ -79,7 +79,6 @@ const PostsContainer = () => {
                             onClick={() => handleImageClick(`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`)}
                         />
                     )}
-                    <CommentsSection postId={post.id} newComment={newComment} />
                 </div>
             ))}
             {selectedImage && (
