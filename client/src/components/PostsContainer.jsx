@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PostForm from './PostForm';
 import CommentsSection from './CommentsSection';
-import io from 'socket.io-client';
-
-const socket = io('https://project-breslov.onrender.com'); // Assurez-vous que cette URL correspond à votre backend
 
 const PostsContainer = () => {
     const [posts, setPosts] = useState([]);
@@ -27,34 +24,14 @@ const PostsContainer = () => {
         };
 
         fetchPosts();
-
-        // Listen for new posts and comments
-        socket.on('new-post', (post) => {
-            setPosts((prevPosts) => [post, ...prevPosts]);
-        });
-
-        socket.on('new-comment', (comment) => {
-            setPosts((prevPosts) => 
-                prevPosts.map(post => 
-                    post.id === comment.postId ? { ...post, comments: [...post.comments, comment] } : post
-                )
-            );
-        });
-
-        return () => {
-            socket.off('new-post');
-            socket.off('new-comment');
-        };
     }, [newPost]);
 
     const handlePostCreated = (post) => {
         setNewPost(post);
-        socket.emit('new-post', post);
     };
 
     const handleCommentPosted = (comment) => {
         setNewComment(comment);
-        socket.emit('new-comment', comment);
     };
 
     const handleImageClick = (imageUrl) => {
