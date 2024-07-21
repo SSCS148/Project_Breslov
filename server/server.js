@@ -4,10 +4,19 @@ const cors = require('cors');
 const sequelize = require('./config/database');
 const path = require('path');
 const dotenv = require('dotenv');
+const http = require('http');  // Importer http
+const { Server } = require('socket.io');  // Importer Server de socket.io
 
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);  // Créer un serveur HTTP
+const io = new Server(server, {
+  cors: {
+    origin: 'https://project-breslov.onrender.com',
+    methods: ['GET', 'POST'],
+  },
+});
 
 // Middleware to verify JWT
 const verifyToken = require('./middlewares/auth');
@@ -78,11 +87,25 @@ sequelize.sync({ alter: true }).then(async () => {
     });
   }
 
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }).catch((err) => {
   console.error('Error syncing database:', err);
 });
 
 app.get('/test-upload', (req, res) => {
   res.sendFile(path.join(__dirname, '../uploads'));
+});
+
+// Socket.io connection
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
+
+app.use((req, res, next) => {
+  req.io = io;
+  next();
 });
