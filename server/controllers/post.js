@@ -4,7 +4,7 @@ const Post = require('../models/Post');
 exports.createPost = async (req, res) => {
   try {
     const { content } = req.body;
-    const photo = req.file ? req.file.filename : null;
+    const photo = req.file ?  `/uploads/${req.file.filename}` : null;
     const userId = req.user.id;
 
     // Log the received data for debugging
