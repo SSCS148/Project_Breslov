@@ -12,9 +12,9 @@ const CommentForm = ({ postId, onCommentPosted }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: 'Bearer ' + token,
                 },
-                body: JSON.stringify({ comment, postId }), // Assurez-vous d'avoir un postId valide
+                body: JSON.stringify({ comment, postId : 96 }), // Assurez-vous d'avoir un postId valide
             });
     
             if (response.ok) {
