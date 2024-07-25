@@ -12,7 +12,7 @@ const SecuredPage = () => {
                 const token = localStorage.getItem('token');
                 const response = await axios.get('https://my-backend-v6iy.onrender.com/api/some-secured-route', {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        'Authorization': `Bearer ${token}`,
                     },
                 });
                 setData(response.data);
