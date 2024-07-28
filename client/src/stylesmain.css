@@ -1,5 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Kunstler+Script&display=swap");
+/* Ajout du style pour les conteneurs de contenu expansibles */
+.content-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+}
 
+.content-container.expanded {
+  max-height: 1000px; /* Ajuster en fonction du contenu */
+}
+
+/* Styles existants */
 body {
   font-family: "Kunstler Script", cursive;
   margin: 0;
@@ -9,7 +19,6 @@ body {
   color: #333;
 }
 
-/* Nouveau style pour le logo */
 .logo-container {
   position: fixed;
   top: 10px;
@@ -19,7 +28,6 @@ body {
 }
 
 h1{
-
   color: #ffffff;
   font-size: 40px;
   text-align: center;
@@ -105,7 +113,28 @@ section h2 {
   padding-bottom: 5px;
   margin-bottom: 10px;
 }
+#biography{
+  color: #000000;
+}
+#biography h3{
+  color: #000000;
+  text-decoration: underline;
+}
 
+#principles{
+  color: #000000;
+}
+#principles h3{
+  color: #000000;
+  text-decoration: underline;
+}
+#celebrations{
+  color: #000000;
+}
+#celebrations h3{
+  color: #000000;
+  text-decoration: underline;
+}
 .input-group {
   margin-bottom: 15px;
 }
@@ -126,25 +155,6 @@ section h2 {
   margin-bottom: 10px;
 }
 
-.password-container {
-  position: relative;
-}
-
-.password-container button {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #000000;
-  padding: 5px;
-  font-size: 12px;
-  width: 50px;
-  height: 30px;
-}
 
 button {
   padding: 10px 15px;
@@ -315,6 +325,17 @@ footer {
 .logo {
   max-width: 300px;
   height: auto;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.social-icons img {
+  width: 40px;
+  height: 40px;
+  margin: 0 10px;
 }
 
 /* Responsive styles */

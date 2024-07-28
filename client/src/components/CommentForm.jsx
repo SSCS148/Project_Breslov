@@ -31,7 +31,6 @@ const CommentForm = ({ postId, onCommentPosted }) => {
     };
     return (
         <div>
-            <h2>Post a comment</h2>
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="comment">Comment</label>
