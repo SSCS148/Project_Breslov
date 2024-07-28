@@ -3,7 +3,6 @@ import CommentForm from './CommentForm';
 import CommentsSection from './CommentsSection';
 import PostForm from './PostForm';
 import PostsContainer from './PostsContainer';
-import io from 'socket.io-client';
 import '../stylesmain.css';
 import logo from '../assets/פסים-צבעוני-חדש.jpeg'; // Assurez-vous que le chemin est correct
 
@@ -30,8 +29,6 @@ import hayeMoharanPdf from '../assets/haye-moharan.pdf'; // Nouvelle importation
 import likouteyTefilotPdf from '../assets/likoutey-tefilot.pdf';
 import yemeMoharanatPdf from '../assets/yeme-moharanat.pdf'; // Nouvelle importation
 
-const socket = io('https://my-backend-v6iy.onrender.com');
-
 const MainPage = () => {
   const [comments, setComments] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -39,8 +36,6 @@ const MainPage = () => {
   const [newPost, setNewPost] = useState(null);
   const [showTeachings, setShowTeachings] = useState(false);
   const [showStories, setShowStories] = useState(false);
-  const [showUserModal, setShowUserModal] = useState(false); // State pour gérer l'affichage de la modale utilisateur
-  const [username, setUsername] = useState(''); // State pour le nom de l'utilisateur
 
   const handleCommentPosted = (comment) => {
     setNewComment(comment);
@@ -48,18 +43,6 @@ const MainPage = () => {
 
   const handlePostCreated = (post) => {
     setNewPost(post);
-  };
-
-  const toggleTeachings = () => {
-    setShowTeachings(!showTeachings);
-  };
-
-  const toggleStories = () => {
-    setShowStories(!showStories);
-  };
-
-  const toggleUserModal = () => {
-    setShowUserModal(!showUserModal);
   };
 
   useEffect(() => {
@@ -96,21 +79,6 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    socket.on('newComment', (comment) => {
-      setComments((prevComments) => [comment, ...prevComments]);
-    });
-
-    socket.on('newPost', (post) => {
-      setPosts((prevPosts) => [post, ...prevPosts]);
-    });
-
-    return () => {
-      socket.off('newComment');
-      socket.off('newPost');
-    };
-  }, []);
-
-  useEffect(() => {
     if (newComment) {
       setComments((prevComments) => [newComment, ...prevComments]);
     }
@@ -121,6 +89,14 @@ const MainPage = () => {
       setPosts((prevPosts) => [newPost, ...prevPosts]);
     }
   }, [newPost]);
+
+  const toggleTeachings = () => {
+    setShowTeachings(!showTeachings);
+  };
+
+  const toggleStories = () => {
+    setShowStories(!showStories);
+  };
 
   return (
     <div>
@@ -186,11 +162,11 @@ const MainPage = () => {
               <p>Tikun Haklali</p>
             </div>
             <div className="book">
-              <a href={likouteyTefilotPdf} target="_blank" rel="noopener noreferrer">
-                <img src={likouteyTefilotImg} alt="Likoutey Tefilot" />
-              </a>
-              <p>Likoutey Tefilot</p>
-            </div>
+                <a href={likouteyTefilotPdf} target="_blank" rel="noopener noreferrer">
+                  <img src={likouteyTefilotImg} alt="likoutey Tefilot" />
+                  <p>Likoutey Tefilot</p>
+                </a>
+              </div>
           </div>
         </section>
         <section id="stories">
@@ -204,17 +180,17 @@ const MainPage = () => {
               <p>Sipourei Maasiot</p>
             </div>
             <div className="book">
-              <a href={hayeMoharanPdf} target="_blank" rel="noopener noreferrer">
-                <img src={hayeMoharanImg} alt="Haye Moharan" />
-              </a>
-              <p>Haye Moharan</p>
-            </div>
-            <div className="book">
-              <a href={yemeMoharanatPdf} target="_blank" rel="noopener noreferrer">
-                <img src={yemeMoharanatImg} alt="Yeme Moharanat" />
-              </a>
-              <p>Yeme Moharanat</p>
-            </div>
+                <a href={hayeMoharanPdf} target="_blank" rel="noopener noreferrer">
+                  <img src={hayeMoharanImg} alt="Haye Moharan" />
+                  <p>Haye Moharan</p>
+                </a>
+              </div>
+              <div className="book">
+                <a href={yemeMoharanatPdf} target="_blank" rel="noopener noreferrer">
+                  <img src={yemeMoharanatImg} alt="Yeme Moharanat" />
+                  <p>Yeme Moharanat</p>
+                </a>
+              </div>
           </div>
         </section>
         <section id="principles">
@@ -233,18 +209,10 @@ const MainPage = () => {
           <h2>Chat <div className="live">Live</div></h2>
           <PostsContainer posts={posts} />
         </section>
-        <section id="user">
-          <h2>Utilisateur</h2>
-          <button onClick={toggleUserModal}>
-            <i className="fas fa-user"></i> Voir le profil
-          </button>
-        </section>
       </main>
       <footer>
         <p>&copy; 2024 Rabbi Nahman and Breslev Hasidism. All rights reserved.</p>
       </footer>
-
-      {showUserModal && <UserModal onClose={toggleUserModal} />} {/* Afficher la modale utilisateur */}
     </div>
   );
 };

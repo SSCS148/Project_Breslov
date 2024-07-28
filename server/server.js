@@ -1,22 +1,13 @@
 const express = require('express');
-const http = require('http');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./config/database');
 const path = require('path');
 const dotenv = require('dotenv');
-const { Server } = require('socket.io');
 
 dotenv.config();
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: ['https://project-breslov.onrender.com', 'http://localhost:8080'],
-    methods: ['GET', 'POST']
-  }
-});
 
 // Middleware to log requests
 app.use((req, res, next) => {
@@ -97,16 +88,11 @@ sequelize.sync({ alter: true }).then(async () => {
     });
   }
 
-  server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }).catch((err) => {
   console.error('Error syncing database:', err);
 });
 
-io.on('connection', (socket) => {
-  console.log('A user connected');
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
+app.get('/test-upload', (req, res) => {
+  res.sendFile(path.join(__dirname, '../uploads'));
 });
-
-module.exports = io; // Exporter l'instance io pour l'utiliser dans d'autres fichiers
