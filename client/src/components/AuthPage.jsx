@@ -40,7 +40,7 @@ const AuthPage = () => {
                 if (isLogin) {
                     localStorage.setItem('token', response.data.tokens.accessToken);
                     navigate('/main'); // Rediriger vers MainPage après connexion
-                    setSuccessMessage('Successfully Login !'); // Afficher le message de succès
+                    setSuccessMessage('Vous vous êtes connecté avec succès !'); // Afficher le message de succès
                     setTimeout(() => {
                         navigate('/main'); // Rediriger vers MainPage après un délai
                     }, 2000); // Attendre 2 secondes avant la redirection
