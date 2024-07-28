@@ -9,17 +9,11 @@ dotenv.config();
 
 const app = express();
 
-// Middleware to log requests
-app.use((req, res, next) => {
-  console.log(`Received request: ${req.method} ${req.url}`);
-  next();
-});
-
 // Middleware to verify JWT
 const verifyToken = require('./middlewares/auth');
 
 // Configure CORS to allow requests from your frontend domain
-const allowedOrigins = ['https://project-breslov.onrender.com', 'http://localhost:8080'];
+const allowedOrigins = ['https://project-breslov.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -57,11 +51,7 @@ app.get('/api/test', (req, res) => {
 
 // Serve the React app for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'), (err) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 const PORT = process.env.PORT || 5002;
@@ -88,11 +78,11 @@ sequelize.sync({ alter: true }).then(async () => {
     });
   }
 
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, () => console.log(Server running on port ${PORT}));
 }).catch((err) => {
   console.error('Error syncing database:', err);
 });
 
 app.get('/test-upload', (req, res) => {
   res.sendFile(path.join(__dirname, '../uploads'));
-});
+}); 
