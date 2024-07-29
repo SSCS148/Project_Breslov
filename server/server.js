@@ -35,6 +35,10 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Routes
+app.get('/main', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+}); 
 // Static files
 app.use('/uploads', express.static('/var/data/uploads'));
 app.use(express.static(path.join(__dirname, '../client/dist')));
