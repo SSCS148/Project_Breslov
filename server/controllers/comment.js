@@ -14,7 +14,7 @@ exports.createComment = async (req, res) => {
 
     // Émet l'événement new-comment à tous les clients
     
-  io.emit('new-comment', newComment);
+    io.emit('new-comment', newComment);
   
   res.status(201).json(newComment);
   } catch (error) {
