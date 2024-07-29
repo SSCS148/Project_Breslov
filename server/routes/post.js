@@ -1,8 +1,9 @@
 const express = require('express');
+const router = express.Router();
 const postController = require('../controllers/post');
-const authenticateToken = require('../middlewares/auth');
+const authenticateToken = require('../middlewares/auth'); // Ensure this path is correct
 const multer = require('multer');
-const path = require('path');
+const path = require('path'); // Ajout de l'importation de 'path'
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -15,12 +16,7 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
+router.post('/', authenticateToken, upload.single('photo'), postController.createPost);
+router.get('/', postController.getPosts);
 
-module.exports = (io) => {
-  const router = express.Router();
-
-  router.post('/', authenticateToken, upload.single('photo'), (req, res) => postController.createPost(req, res, io));
-  router.get('/', postController.getPosts);
-
-  return router;
-};
+module.exports = router;
