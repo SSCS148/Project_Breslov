@@ -10,29 +10,25 @@ const PostsContainer = () => {
     const [newPost, setNewPost] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts');
-                if (response.ok) {
-                    const data = await response.json();
-                    setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-                } else {
-                    console.error('Error fetching posts:', response.statusText);
-                }
-            } catch (error) {
-                console.error('Error:', error);
+    const fetchPosts = async () => {
+        try {
+            const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts');
+            if (response.ok) {
+                const data = await response.json();
+                setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+            } else {
+                console.error('Error fetching posts:', response.statusText);
             }
-        };
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
+    useEffect(() => {
         fetchPosts();
 
         socket.on('new-post', (post) => {
-            if (Object.keys(post).length > 0) {
-                setPosts(prevPosts => [post, ...prevPosts]);
-            } else {
-                fetchPosts(); // Charger les posts si le message est vide
-            }
+            setPosts(prevPosts => [post, ...prevPosts]);
         });
 
         return () => {
@@ -59,6 +55,7 @@ const PostsContainer = () => {
     return (
         <div className="posts-container">
             <PostForm onPostCreated={handlePostCreated} />
+            <button onClick={fetchPosts}>Rafraîchir les posts</button>
             {posts.map(post => (
                 <div key={post.id} className="post">
                     <p>{post.content}</p>
