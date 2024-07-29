@@ -43,8 +43,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 const userRoutes = require('./routes/user');
-const postRoutes = require('./routes/post')(io);  // Passer io aux routes de post
-const commentRoutes = require('./routes/comment')(io);  // Passer io aux routes de commentaire
+const postRoutes = require('./routes/post');
+const commentRoutes = require('./routes/comment');
 
 app.use('/api/user', userRoutes);
 app.use('/api/posts', postRoutes);
