@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import PostForm from './PostForm';
 
-// Use production URL
 const socket = io('https://my-backend-v6iy.onrender.com');
 
 const PostsContainer = () => {
@@ -29,7 +28,11 @@ const PostsContainer = () => {
         fetchPosts();
 
         socket.on('new-post', (post) => {
-            setPosts(prevPosts => [post, ...prevPosts]);
+            if (Object.keys(post).length > 0) {
+                setPosts(prevPosts => [post, ...prevPosts]);
+            } else {
+                fetchPosts(); // Charger les posts si le message est vide
+            }
         });
 
         return () => {

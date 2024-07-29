@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
-// Use production URL
 const socket = io('https://my-backend-v6iy.onrender.com');
 
 const CommentsSection = ({ postId, newComment }) => {
@@ -25,7 +24,11 @@ const CommentsSection = ({ postId, newComment }) => {
         loadComments();
 
         socket.on('new-comment', (comment) => {
-            setComments(prevComments => [comment, ...prevComments]);
+            if (Object.keys(comment).length > 0) {
+                setComments(prevComments => [comment, ...prevComments]);
+            } else {
+                loadComments(); // Charger les commentaires si le message est vide
+            }
         });
 
         return () => {

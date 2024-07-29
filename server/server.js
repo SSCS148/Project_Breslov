@@ -66,19 +66,22 @@ app.get('*', (req, res) => {
 // Socket.io connection
 io.on('connection', (socket) => {
   console.log('a user connected');
-  
+
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+      console.log('user disconnected');
   });
 
   socket.on('new-comment', (data) => {
-    io.emit('new-comment', data);
+      io.emit('new-comment', data);
+      io.emit('new-comment', {}); // Envoyer un message vide pour forcer la mise à jour
   });
 
   socket.on('new-post', (data) => {
-    io.emit('new-post', data);
+      io.emit('new-post', data);
+      io.emit('new-post', {}); // Envoyer un message vide pour forcer la mise à jour
   });
 });
+
 
 const PORT = process.env.PORT || 5002;
 
