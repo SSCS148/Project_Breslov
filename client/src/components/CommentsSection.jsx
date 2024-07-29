@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
+
+// Use production URL
+const socket = io('https://my-backend-v6iy.onrender.com');
 
 const CommentsSection = ({ postId, newComment }) => {
     const [comments, setComments] = useState([]);
@@ -9,7 +13,6 @@ const CommentsSection = ({ postId, newComment }) => {
                 const response = await fetch(`https://my-backend-v6iy.onrender.com/api/comments?postId=${postId}`);
                 if (response.ok) {
                     const data = await response.json();
-                    // Sort comments so that the newest appear at the top
                     setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
                 } else {
                     console.error('Error fetching comments:', response.statusText);
@@ -18,8 +21,16 @@ const CommentsSection = ({ postId, newComment }) => {
                 console.error('Error:', error);
             }
         };
-    
+
         loadComments();
+
+        socket.on('new-comment', (comment) => {
+            setComments(prevComments => [comment, ...prevComments]);
+        });
+
+        return () => {
+            socket.off('new-comment');
+        };
     }, [postId]);
 
     useEffect(() => {
@@ -39,7 +50,7 @@ const CommentsSection = ({ postId, newComment }) => {
                 },
                 body: JSON.stringify({ commentId }),
             });
-    
+
             if (response.ok) {
                 const updatedComment = await response.json();
                 setComments(prevComments =>

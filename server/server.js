@@ -1,4 +1,6 @@
 const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const sequelize = require('./config/database');
@@ -8,18 +10,19 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-
-// Middleware to log requests
-app.use((req, res, next) => {
-  console.log(`Received request: ${req.method} ${req.url}`);
-  next();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: 'https://project-breslov.onrender.com',
+    methods: ['GET', 'POST'],
+  },
 });
 
 // Middleware to verify JWT
 const verifyToken = require('./middlewares/auth');
 
 // Configure CORS to allow requests from your frontend domain
-const allowedOrigins = ['https://project-breslov.onrender.com', 'http://localhost:8080'];
+const allowedOrigins = ['https://project-breslov.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -36,7 +39,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Static files
-app.use('/uploads', express.static('/var/data/uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 const userRoutes = require('./routes/user');
@@ -57,10 +60,23 @@ app.get('/api/test', (req, res) => {
 
 // Serve the React app for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'), (err) => {
-    if (err) {
-      res.status(500).send(err);
-    }
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
+// Socket.io connection
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+  socket.on('new-comment', (data) => {
+    io.emit('new-comment', data);
+  });
+
+  socket.on('new-post', (data) => {
+    io.emit('new-post', data);
   });
 });
 
@@ -88,11 +104,7 @@ sequelize.sync({ alter: true }).then(async () => {
     });
   }
 
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }).catch((err) => {
   console.error('Error syncing database:', err);
-});
-
-app.get('/test-upload', (req, res) => {
-  res.sendFile(path.join(__dirname, '../uploads'));
 });

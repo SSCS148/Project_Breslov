@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 import PostForm from './PostForm';
-import CommentsSection from './CommentsSection';
+
+// Use production URL
+const socket = io('https://my-backend-v6iy.onrender.com');
 
 const PostsContainer = () => {
     const [posts, setPosts] = useState([]);
@@ -24,6 +27,14 @@ const PostsContainer = () => {
         };
 
         fetchPosts();
+
+        socket.on('new-post', (post) => {
+            setPosts(prevPosts => [post, ...prevPosts]);
+        });
+
+        return () => {
+            socket.off('new-post');
+        };
     }, [newPost]);
 
     const handlePostCreated = (post) => {
