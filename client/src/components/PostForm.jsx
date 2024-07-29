@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 
 const PostForm = ({ onPostCreated }) => {
     const [content, setContent] = useState('');
@@ -18,7 +18,7 @@ const PostForm = ({ onPostCreated }) => {
             const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts', {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: formData,
             });
@@ -56,4 +56,4 @@ const PostForm = ({ onPostCreated }) => {
     );
 };
 
-export default PostForm;
+export default PostForm;							
