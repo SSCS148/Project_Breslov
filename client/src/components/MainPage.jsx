@@ -323,7 +323,7 @@ const MainPage = () => {
           </div>
         </section>
         <section id="communication">
-          <h2>Chat <div className="live">Live</div></h2>
+          <h2><div className="live">Chat Live</div></h2>
           <PostsContainer posts={posts} />
         </section>
       </main>
