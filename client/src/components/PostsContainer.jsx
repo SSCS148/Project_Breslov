@@ -55,7 +55,7 @@ const PostsContainer = () => {
     return (
         <div className="posts-container">
             <PostForm onPostCreated={handlePostCreated} />
-            <button onClick={fetchPosts}>Refresh the Comments</button>
+            <button onClick={fetchPosts}>Refresh the Posts</button>
             {posts.map(post => (
                 <div key={post.id} className="post">
                     <p>{post.content}</p>

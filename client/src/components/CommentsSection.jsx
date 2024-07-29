@@ -40,6 +40,7 @@ const CommentsSection = ({ postId, newComment }) => {
 
     return (
         <div>
+            <h2>Comments</h2>
             <button onClick={loadComments}>Refresh the Comments</button>
             <div id="commentsSection">
                 {comments.map(comment => (
