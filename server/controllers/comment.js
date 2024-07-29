@@ -12,11 +12,7 @@ exports.createComment = async (req, res) => {
       userId,
     });
 
-    // Émet l'événement new-comment à tous les clients
-    
-    io.emit('new-comment', newComment);
-  
-  res.status(201).json(newComment);
+    res.status(201).json(newComment);
   } catch (error) {
     res.status(500).json({ error: "Error creating comment" });
   }
