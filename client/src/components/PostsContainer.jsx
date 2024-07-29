@@ -9,7 +9,6 @@ const PostsContainer = () => {
     const [newComment, setNewComment] = useState(null);
     const [newPost, setNewPost] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
-    const [message, setMessage] = useState('');
 
     const fetchPosts = async () => {
         try {
@@ -17,7 +16,6 @@ const PostsContainer = () => {
             if (response.ok) {
                 const data = await response.json();
                 setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-                setMessage(''); // Clear the message after refresh
             } else {
                 console.error('Error fetching posts:', response.statusText);
             }
@@ -31,7 +29,6 @@ const PostsContainer = () => {
 
         socket.on('new-post', (post) => {
             setPosts(prevPosts => [post, ...prevPosts]);
-            setMessage('New posts available. Please refresh the chat.'); // Set the message when a new post is received
         });
 
         return () => {
@@ -58,8 +55,7 @@ const PostsContainer = () => {
     return (
         <div className="posts-container">
             <PostForm onPostCreated={handlePostCreated} />
-            {message && <p style={{ color: 'red' }}>{message}</p>} {/* Display the message */}
-            <button onClick={fetchPosts}>Refresh posts</button>
+            <button onClick={fetchPosts}>Rafraîchir les posts</button>
             {posts.map(post => (
                 <div key={post.id} className="post">
                     <p>{post.content}</p>

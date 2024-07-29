@@ -5,7 +5,6 @@ const socket = io('https://my-backend-v6iy.onrender.com');
 
 const CommentsSection = ({ postId, newComment }) => {
     const [comments, setComments] = useState([]);
-    const [message, setMessage] = useState('');
 
     const loadComments = async () => {
         try {
@@ -13,7 +12,6 @@ const CommentsSection = ({ postId, newComment }) => {
             if (response.ok) {
                 const data = await response.json();
                 setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-                setMessage(''); // Clear the message after refresh
             } else {
                 console.error('Error fetching comments:', response.statusText);
             }
@@ -27,7 +25,6 @@ const CommentsSection = ({ postId, newComment }) => {
 
         socket.on('new-comment', (comment) => {
             setComments(prevComments => [comment, ...prevComments]);
-            setMessage('New comments available. Please refresh the chat.'); // Set the message when a new comment is received
         });
 
         return () => {
@@ -44,8 +41,7 @@ const CommentsSection = ({ postId, newComment }) => {
     return (
         <div>
             <h2>Comments</h2>
-            {message && <p style={{ color: 'red' }}>{message}</p>} {/* Display the message */}
-            <button onClick={loadComments}>Refresh comments</button>
+            <button onClick={loadComments}>Rafraîchir les commentaires</button>
             <div id="commentsSection">
                 {comments.map(comment => (
                     <div key={comment.id} className="comment-container">
