@@ -41,7 +41,8 @@ const CommentsSection = ({ postId, newComment }) => {
     return (
         <div>
             <h2>Comments</h2>
-            <button onClick={loadComments}>Rafraîchir les commentaires</button>
+            {message && <p style={{ color: 'red' }}>{message}</p>} {/* Display the message */}
+            <button onClick={loadComments}>Refresh comments</button>
             <div id="commentsSection">
                 {comments.map(comment => (
                     <div key={comment.id} className="comment-container">
