@@ -34,7 +34,7 @@ const CommentForm = ({ postId, onCommentPosted }) => {
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="comment">Comment</label>
-                    <textarea id="comment" value={comment} onChange={(e) => setComment(e.target.value)} required />
+                    <textarea placeholder="What do you think of our website ?" id="comment" value={comment} onChange={(e) => setComment(e.target.value)} required />
                 </div>
                 <button type="submit">Post Comment</button>
             </form>

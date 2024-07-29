@@ -40,7 +40,7 @@ const PostForm = ({ onPostCreated }) => {
         <form onSubmit={handleSubmit}>
             <div>
                 <textarea
-                    placeholder="What's on your mind?"
+                    placeholder="What's on your mind ?"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />
