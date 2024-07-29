@@ -38,6 +38,32 @@ const CommentsSection = ({ postId, newComment }) => {
         }
     }, [newComment]);
 
+    const likeComment = async (commentId) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments/like', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token,
+                },
+                body: JSON.stringify({ commentId }),
+            });
+            if (response.ok) {
+                const updatedComment = await response.json();
+                setComments(prevComments =>
+                    prevComments.map(comment =>
+                        comment.id === updatedComment.id ? updatedComment : comment
+                    )
+                );
+            } else {
+                console.error('Error liking comment:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     return (
         <div>
             <h2>Comments</h2>
