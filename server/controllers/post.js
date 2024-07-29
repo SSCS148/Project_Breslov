@@ -17,6 +17,9 @@ exports.createPost = async (req, res) => {
       photo,
       userId,
     });
+    
+    // Émet l'événement new-post à tous les clients
+    io.emit('new-post', newPost);
 
     res.status(201).json(newPost);
   } catch (error) {
