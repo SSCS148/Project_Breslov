@@ -3,6 +3,9 @@ const router = express.Router();
 const authMiddleware = require('../middlewares/auth');
 const Comment = require('../models/Comment');  // Importez directement le modèle Comment
 
+module.exports = (io) => {
+    const router = express.Router();
+
 // Route pour poster un commentaire
 router.post('/', authMiddleware, async (req, res) => {
     try {
@@ -48,5 +51,6 @@ router.post('/like', authMiddleware, async (req, res) => {
         res.status(500).json({ message: 'Failed to like comment', error });
     }
 });
-
+ return router;
+};
 module.exports = router;
