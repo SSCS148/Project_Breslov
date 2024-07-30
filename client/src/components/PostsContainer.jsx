@@ -61,12 +61,15 @@ const PostsContainer = () => {
                 <div key={post.id} className="post">
                     <p>{post.content}</p>
                     {post.photo && (
-                        <img
-                            src={`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`}
-                            alt="Post"
-                            className="thumbnail"
-                            onClick={() => handleImageClick(`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`)}
-                        />
+                        <div>
+                            <img
+                                src={`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`}
+                                alt="Post"
+                                className="thumbnail"
+                                onClick={() => handleImageClick(`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`)}
+                            />
+                            <p>{`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`}</p> {/* Log URL for debugging */}
+                        </div>
                     )}
                 </div>
             ))}
