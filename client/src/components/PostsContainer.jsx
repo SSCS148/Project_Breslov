@@ -55,7 +55,8 @@ const PostsContainer = () => {
     return (
         <div className="posts-container">
             <PostForm onPostCreated={handlePostCreated} />
-            <button onClick={fetchPosts}>Refresh the Posts</button>
+            <button onClick={fetchPosts}>Refresh Posts</button>
+            {posts.length === 0 && <p>Please refresh the chat to see new posts.</p>}
             {posts.map(post => (
                 <div key={post.id} className="post">
                     <p>{post.content}</p>
