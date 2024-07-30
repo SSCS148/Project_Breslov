@@ -111,3 +111,7 @@ sequelize.sync({ alter: true }).then(async () => {
 }).catch((err) => {
   console.error('Error syncing database:', err);
 });
+
+app.get('/test-upload', (req, res) => {
+  res.sendFile(path.join(__dirname, '../uploads'));
+});
