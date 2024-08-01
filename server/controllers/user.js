@@ -2,7 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// Codes ANSI pour les couleurs
+// ANSI codes for console colors
 const ANSI_RED = '\x1b[31m';
 const ANSI_GREEN = '\x1b[32m';
 const ANSI_RESET = '\x1b[0m';

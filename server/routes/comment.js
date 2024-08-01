@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middlewares/auth');
-const Comment = require('../models/Comment');  // Importez directement le modèle Comment
+const Comment = require('../models/Comment'); // Import Comment model directly
 
-// Route pour poster un commentaire
+// Route to post a comment
 router.post('/', authMiddleware, async (req, res) => {
     try {
         console.log('Request body:', req.body);
@@ -20,7 +20,7 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 });
 
-// Route pour récupérer tous les commentaires
+// Route to get all comments
 router.get('/', async (req, res) => {
     try {
         const comments = await Comment.findAll();
@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Route pour aimer un commentaire
+// Route to like a comment
 router.post('/like', authMiddleware, async (req, res) => {
     try {
         const { commentId } = req.body;

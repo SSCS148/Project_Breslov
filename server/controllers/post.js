@@ -1,6 +1,6 @@
-// controllers/post.js
 const Post = require('../models/Post');
 
+// Controller for creating a new post
 exports.createPost = async (req, res) => {
   try {
     const { content } = req.body;
@@ -25,6 +25,7 @@ exports.createPost = async (req, res) => {
   }
 };
 
+// Controller for fetching all posts
 exports.getPosts = async (req, res) => {
   try {
     const posts = await Post.findAll();

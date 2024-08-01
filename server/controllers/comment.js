@@ -1,7 +1,7 @@
-// server/controllers/comment.js
 const Comment = require("../models/Comment");
 const User = require("../models/User");
 
+// Controller for creating a new comment
 exports.createComment = async (req, res) => {
   try {
     const { comment } = req.body;
@@ -18,6 +18,7 @@ exports.createComment = async (req, res) => {
   }
 };
 
+// Controller for fetching all comments
 exports.getAllComments = async (req, res) => {
   try {
     const comments = await Comment.findAll({
@@ -29,6 +30,7 @@ exports.getAllComments = async (req, res) => {
   }
 };
 
+// Controller for liking a comment
 exports.likeComment = async (req, res) => {
   try {
     const { commentId } = req.body;

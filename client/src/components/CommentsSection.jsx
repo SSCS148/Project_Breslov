@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
+// Initialize socket connection
 const socket = io('https://my-backend-v6iy.onrender.com');
 
+// CommentsSection component displays and handles interactions with comments
 const CommentsSection = ({ postId, newComment }) => {
     const [comments, setComments] = useState([]);
 
+    // Load comments for a specific post
     const loadComments = async () => {
         try {
             const response = await fetch(`https://my-backend-v6iy.onrender.com/api/comments?postId=${postId}`);
             if (response.ok) {
                 const data = await response.json();
+                // Sort comments by creation date
                 setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
             } else {
                 console.error('Error fetching comments:', response.statusText);
@@ -20,24 +24,29 @@ const CommentsSection = ({ postId, newComment }) => {
         }
     };
 
+    // Load comments when component mounts or postId changes
     useEffect(() => {
         loadComments();
 
+        // Listen for new comments via socket
         socket.on('new-comment', (comment) => {
             setComments(prevComments => [comment, ...prevComments]);
         });
 
+        // Cleanup socket connection
         return () => {
             socket.off('new-comment');
         };
     }, [postId]);
 
+    // Add new comment to the state when it is received
     useEffect(() => {
         if (newComment) {
             setComments(prevComments => [newComment, ...prevComments]);
         }
     }, [newComment]);
 
+    // Handle liking a comment
     const likeComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');

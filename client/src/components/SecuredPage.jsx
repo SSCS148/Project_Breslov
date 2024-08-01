@@ -1,12 +1,13 @@
-// src/components/SecuredPage.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+// SecuredPage component for displaying secured content after user authentication
 const SecuredPage = () => {
     const [data, setData] = useState(null);
     const [message, setMessage] = useState('');
 
     useEffect(() => {
+        // Fetch secured data
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('token');

@@ -66,7 +66,7 @@ h2 {
 .password-container button {
   position: absolute;
   right: 6px;
-  top: 50%;
+  top: 51%;
   transform: translateY(-50%);
   background: none;
   border: 1px solid #000000;

@@ -3,20 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles.css';
 
+// AuthPage component handles user authentication (login and registration)
 const AuthPage = () => {
-    const [isLogin, setIsLogin] = useState(true);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [age, setAge] = useState('');
-    const [message, setMessage] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const navigate = useNavigate();
+    // State variables to manage form inputs and UI state
+    const [isLogin, setIsLogin] = useState(true); // Toggle between login and registration mode
+    const [name, setName] = useState(''); // Name input for registration
+    const [email, setEmail] = useState(''); // Email input for login/registration
+    const [password, setPassword] = useState(''); // Password input for login/registration
+    const [age, setAge] = useState(''); // Age input for registration
+    const [message, setMessage] = useState(''); // Message to display success/error
+    const [showPassword, setShowPassword] = useState(false); // Toggle password visibility
+    const navigate = useNavigate(); // Hook for navigation
 
+    // Toggle password visibility
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
 
+    // Handle form submission for login/registration
     const handleAuth = async (e) => {
         e.preventDefault();
         try {
@@ -39,9 +43,9 @@ const AuthPage = () => {
     
                 if (isLogin) {
                     localStorage.setItem('token', response.data.tokens.accessToken);
-                    navigate('/main'); // Rediriger vers MainPage après connexion
+                    navigate('/main'); // Redirect to MainPage after successful login
                 } else {
-                    // Rediriger vers la page de connexion après enregistrement
+                    // Reset form for login after successful registration
                     setIsLogin(true);
                     setPassword('');
                     setName('');
@@ -57,6 +61,7 @@ const AuthPage = () => {
         }
     };
 
+    // Switch between login and registration modes
     const handleSwitchMode = () => {
         setIsLogin(!isLogin);
         setMessage('');

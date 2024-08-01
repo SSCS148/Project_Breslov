@@ -4,7 +4,7 @@ import CommentsSection from './CommentsSection';
 import PostForm from './PostForm';
 import PostsContainer from './PostsContainer';
 import '../stylesmain.css';
-import logo from '../assets/פסים-צבעוני-חדש.jpeg'; // Assurez-vous que le chemin est correct
+import logo from '../assets/פסים-צבעוני-חדש.jpeg';
 
 import likouteyMoharanPdf from '../assets/likoutey-moharan.pdf';
 import meshivatNefeshPdf from '../assets/meshivat-nefesh.pdf';
@@ -13,9 +13,9 @@ import likouteyEtsotPdf from '../assets/likoutey-etsot.pdf';
 import seferHamidotPdf from '../assets/sefer-hamidot.pdf';
 import sipoureiMaasiotPdf from '../assets/sipourei-maasiot.pdf';
 import tikunHaklaliPdf from '../assets/tikun-haklali.pdf';
-import hayeMoharanImg from '../assets/haye-moharan.jpeg'; // Nouvelle importation
+import hayeMoharanImg from '../assets/haye-moharan.jpeg'; 
 import likouteyTefilotImg from '../assets/likoutey-tefilot.jpeg';
-import yemeMoharanatImg from '../assets/yeme-moharanat.jpeg'; // Nouvelle importation
+import yemeMoharanatImg from '../assets/yeme-moharanat.jpeg'; 
 
 import likouteyMoharanImg from '../assets/likoutey-moharan.jpeg';
 import meshivatNefeshImg from '../assets/meshivat-nefesh.jpeg';
@@ -25,30 +25,32 @@ import seferHamidotImg from '../assets/sefer-hamidot.jpeg';
 import sipoureiMaasiotImg from '../assets/sipourei-maasiot.jpeg';
 import tikunHaklaliImg from '../assets/tikun-haklali.jpeg';
 import genericBookImg from '../assets/generic-book.jpeg';
-import hayeMoharanPdf from '../assets/haye-moharan.pdf'; // Nouvelle importation
+import hayeMoharanPdf from '../assets/haye-moharan.pdf'; 
 import likouteyTefilotPdf from '../assets/likoutey-tefilot.pdf';
-import yemeMoharanatPdf from '../assets/yeme-moharanat.pdf'; // Nouvelle importation
+import yemeMoharanatPdf from '../assets/yeme-moharanat.pdf';
 
+// MainPage component handles displaying various sections and user interactions
 const MainPage = () => {
   const [comments, setComments] = useState([]);
   const [posts, setPosts] = useState([]);
   const [newComment, setNewComment] = useState(null);
   const [newPost, setNewPost] = useState(null);
-  const [showBiography, setShowBiography] = useState(false); // Ajouté
-  const [showTeachings, setShowTeachings] = useState(false);
-  const [showStories, setShowStories] = useState(false);
-  const [showComments, setShowComments] = useState(false);
-  const [showPrinciples, setShowPrinciples] = useState(false);
-  const [showCelebrations, setShowCelebrations] = useState(false);
+  const [showBiography, setShowBiography] = useState(false); // Toggle Biography section
+  const [showTeachings, setShowTeachings] = useState(false); // Toggle Teachings section
+  const [showStories, setShowStories] = useState(false); // Toggle Stories section
+  const [showComments, setShowComments] = useState(false); // Toggle Comments section
+  const [showPrinciples, setShowPrinciples] = useState(false);  // Toggle Principles section
+  const [showCelebrations, setShowCelebrations] = useState(false); // Toggle Celebrations section
 
+  // Callback to update state with new comment
   const handleCommentPosted = (comment) => {
     setNewComment(comment);
   };
-
+  // Callback to update state with new post
   const handlePostCreated = (post) => {
     setNewPost(post);
   };
-
+  // Fetch comments from API
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -82,18 +84,21 @@ const MainPage = () => {
     fetchPosts();
   }, []);
 
+  // Update comments state when a new comment is received
   useEffect(() => {
     if (newComment) {
       setComments((prevComments) => [newComment, ...prevComments]);
     }
   }, [newComment]);
 
+  // Update posts state when a new post is received
   useEffect(() => {
     if (newPost) {
       setPosts((prevPosts) => [newPost, ...prevPosts]);
     }
   }, [newPost]);
-
+  
+   // Toggle various sections visibility
   const toggleBiography = () => {
     setShowBiography(!showBiography);
   };

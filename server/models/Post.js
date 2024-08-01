@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
+// Define Post model with Sequelize
 const Post = sequelize.define('Post', {
   content: {
     type: DataTypes.STRING,

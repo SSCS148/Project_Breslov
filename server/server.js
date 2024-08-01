@@ -26,7 +26,7 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Static files
+// Serve static files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
@@ -38,10 +38,12 @@ app.use('/api/user', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 
+// Fallback to index.html for client-side routing
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
+// Handle socket connections
 io.on('connection', (socket) => {
   console.log('a user connected');
 
@@ -60,6 +62,7 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 5002;
 
+// Sync database and start server
 sequelize.sync({ alter: true }).then(() => {
   server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }).catch((err) => {

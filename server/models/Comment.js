@@ -3,6 +3,7 @@ const sequelize = require('../config/database');
 const Post = require('./Post');
 const User = require('./User');
 
+// Define Comment model with Sequelize
 const Comment = sequelize.define('Comment', {
   comment: {
     type: DataTypes.STRING,

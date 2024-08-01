@@ -1,9 +1,11 @@
- import React, { useState } from 'react';
+import React, { useState } from 'react';
 
+// PostForm component allows users to create new posts with optional photo
 const PostForm = ({ onPostCreated }) => {
     const [content, setContent] = useState('');
     const [photo, setPhoto] = useState(null);
 
+    // Handle form submission to create a new post
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -27,7 +29,7 @@ const PostForm = ({ onPostCreated }) => {
                 const data = await response.json();
                 setContent('');
                 setPhoto(null);
-                onPostCreated(data);
+                onPostCreated(data); // Callback to update parent component with new post
             } else {
                 console.error('Error posting message:', response.statusText);
             }
@@ -37,10 +39,10 @@ const PostForm = ({ onPostCreated }) => {
     };
 
     return (
-        <form className='form' onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
             <div>
                 <textarea
-                    placeholder="What's on your mind ?"
+                    placeholder="What's on your mind?"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />
@@ -56,4 +58,4 @@ const PostForm = ({ onPostCreated }) => {
     );
 };
 
-export default PostForm;							
+export default PostForm;

@@ -3,19 +3,19 @@ const router = express.Router();
 const userController = require('../controllers/user');
 const authMiddleware = require('../middlewares/auth');
 
-// Ajout des routes pour l'authentification et le renouvellement des tokens
+// Authentication and token refresh routes
 router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.get('/check-email', userController.checkEmail);
 router.get('/users', userController.getAllUsers);
 router.post('/refresh-token', userController.refreshToken);
 
-// Route sécurisée
+// Secured route example
 router.get('/some-secured-route', authMiddleware, (req, res) => {
   res.status(200).json({ message: 'Access granted', userId: req.user.id });
 });
 
-// Route pour obtenir tous les utilisateurs
+// Route to get all users
 router.get('/all', authMiddleware, async (req, res) => {
   try {
       const users = await User.findAll();

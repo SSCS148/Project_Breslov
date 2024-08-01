@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
+// Define User model with Sequelize
 const User = sequelize.define('User', {
   name: {
     type: DataTypes.STRING,

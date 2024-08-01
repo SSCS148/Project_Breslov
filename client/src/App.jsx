@@ -3,16 +3,17 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import AuthPage from "./components/AuthPage";
 import MainPage from "./components/MainPage";
 
+// App component sets up routing for the application
 const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<AuthPage />} />
-        <Route path="/main" element={<MainPage />} />
-        <Route path="*" element={<Navigate to="/" />} /> {/* Rediriger les pages non trouvées vers la page d'accueil */}
-      </Routes>
-    </Router>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<AuthPage />} />
+                <Route path="/main" element={<MainPage />} />
+                <Route path="*" element={<Navigate to="/" />} /> {/* Redirect unknown routes to home */}
+            </Routes>
+        </Router>
+    );
 };
 
 export default App;
