@@ -37,7 +37,7 @@ const PostForm = ({ onPostCreated }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='form' onSubmit={handleSubmit}>
             <div>
                 <textarea
                     placeholder="What's on your mind ?"

@@ -31,7 +31,7 @@ h1{
   color: #ffffff;
   font-size: 40px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 1px;
   box-shadow: 7px 5px 44px 9px rgb(255, 255, 255);
 }
 
@@ -149,30 +149,12 @@ section h2 {
 .input-group , textarea {
   width: calc(100% - 22px);
   padding: 12px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 13px;
 }
-.password-container {
-  position: relative;
+.form{
+  display: inline;
 }
-
-.password-container button {
-  position: absolute;
-  right: -6px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #000000;
-  padding: 5px;
-  font-size: 12px;
-  width: 50px;
-  height: 30px;
-}
-
 button {
   padding: 10px 15px;
   border: none;
