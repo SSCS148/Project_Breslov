@@ -23,4 +23,10 @@ const upload = multer({ storage: storage });
 router.post('/', authenticateToken, upload.single('photo'), postController.createPost);
 router.get('/', postController.getPosts);
 
+// Route to like a post
+router.post('/like', authenticateToken, postController.likePost);
+
+// Route to delete a post
+router.delete('/:id', authenticateToken, postController.deletePost);
+
 module.exports = router;

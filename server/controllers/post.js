@@ -7,11 +7,6 @@ exports.createPost = async (req, res) => {
     const photo = req.file ? req.file.filename : null;
     const userId = req.user.id;
 
-    // Log the received data for debugging
-    console.log('Received content:', content);
-    console.log('Received photo:', photo);
-    console.log('Received userId:', userId);
-
     const newPost = await Post.create({
       content,
       photo,
@@ -33,5 +28,45 @@ exports.getPosts = async (req, res) => {
   } catch (error) {
     console.error('Error fetching posts:', error);
     res.status(500).json({ message: 'Failed to fetch posts', error });
+  }
+};
+
+// Controller for liking a post
+exports.likePost = async (req, res) => {
+  try {
+    const { postId } = req.body;
+    const post = await Post.findByPk(postId);
+    if (post) {
+      post.likes += 1;
+      await post.save();
+      res.status(200).json(post);
+    } else {
+      res.status(404).json({ message: 'Post not found' });
+    }
+  } catch (error) {
+    console.error('Error liking post:', error);
+    res.status(500).json({ message: 'Failed to like post', error });
+  }
+};
+
+// Controller for deleting a post
+exports.deletePost = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const post = await Post.findByPk(postId);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    if (post.userId !== req.user.id) {
+      return res.status(403).json({ message: 'Unauthorized' });
+    }
+
+    await post.destroy();
+    res.status(200).json({ message: 'Post deleted' });
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    res.status(500).json({ message: 'Failed to delete post', error });
   }
 };

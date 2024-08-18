@@ -49,4 +49,8 @@ router.post('/like', authMiddleware, async (req, res) => {
     }
 });
 
+// Route to delete a comment
+router.delete('/:id', authMiddleware, commentController.deleteComment);
+
+
 module.exports = router;
