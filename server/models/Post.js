@@ -11,10 +11,6 @@ const Post = sequelize.define('Post', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  likes: {
-    type: DataTypes.INTEGER,
-    defaultValue: 0, // Added the likes field
-  },
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,

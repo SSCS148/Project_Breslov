@@ -73,26 +73,6 @@ const CommentsSection = ({ postId, newComment }) => {
         }
     };
 
-    const deleteComment = async (commentId) => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/comments/${commentId}`, {
-                method: 'DELETE',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                },
-            });
-
-            if (response.ok) {
-                setComments(comments.filter(comment => comment.id !== commentId));
-            } else {
-                console.error('Error deleting comment:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-   
     return (
         <div>
             <h2>Comments</h2>
@@ -106,7 +86,6 @@ const CommentsSection = ({ postId, newComment }) => {
                                 Likes: <span id={`likeCount-${comment.id}`}>{comment.likes}</span>
                             </p>
                             <button onClick={() => likeComment(comment.id)}>Like</button>
-                            <button onClick={() => deleteComment(comment.id)}>Delete</button>
                         </div>
                     </div>
                 ))}
