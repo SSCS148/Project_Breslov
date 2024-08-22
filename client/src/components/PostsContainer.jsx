@@ -62,6 +62,27 @@ const PostsContainer = () => {
         setSelectedImage(null);
     };
 
+    // Function to delete post
+    const deletePost = async (postId) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/posts/${postId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
+            } else {
+                console.error('Failed to delete post');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     return (
         <div className="posts-container">
             <PostForm onPostCreated={handlePostCreated} />
@@ -78,6 +99,7 @@ const PostsContainer = () => {
                             onClick={() => handleImageClick(`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`)}
                         />
                     )}
+                    <button onClick={() => deletePost(post.id)}>Delete Post</button>
                 </div>
             ))}
             {selectedImage && (

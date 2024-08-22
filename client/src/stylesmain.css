@@ -486,3 +486,17 @@ footer {
 .unlike-button:hover {
   background-color: #cc9900;
 }
+
+button.delete-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+button.delete-button:hover {
+  background-color: #e60000;
+}
