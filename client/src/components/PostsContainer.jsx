@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import PostForm from './PostForm';
 
-// Initialiser la connexion socket
+// Initialize socket connection
 const socket = io('https://my-backend-v6iy.onrender.com');
 
+// PostsContainer component handles displaying posts and real-time updates
 const PostsContainer = () => {
     const [posts, setPosts] = useState([]);
     const [newComment, setNewComment] = useState(null);
     const [newPost, setNewPost] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
 
-    // Récupérer les posts depuis l'API
+    // Fetch posts from API
     const fetchPosts = async () => {
         try {
             const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts');
@@ -26,49 +27,77 @@ const PostsContainer = () => {
         }
     };
 
+    // Load posts when component mounts
     useEffect(() => {
         fetchPosts();
 
-        // Écouter les nouveaux posts via socket
+        // Listen for new posts via socket
         socket.on('new-post', (post) => {
             setPosts(prevPosts => [post, ...prevPosts]);
         });
 
+        // Cleanup socket connection
         return () => {
             socket.off('new-post');
         };
     }, [newPost]);
 
+    // Callback to update state with new post
     const handlePostCreated = (post) => {
         setNewPost(post);
     };
 
+    // Callback to update state with new comment
     const handleCommentPosted = (comment) => {
         setNewComment(comment);
     };
 
+    // Handle image click to show in a modal
     const handleImageClick = (imageUrl) => {
         setSelectedImage(imageUrl);
     };
 
+    // Close the image modal
     const handleCloseModal = () => {
         setSelectedImage(null);
     };
 
-    const deletePost = async (postId) => {
+    // Function to like post
+    const likePost = async (postId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/posts/${postId}`, {
-                method: 'DELETE',
+            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/posts/${postId}/like`, {
+                method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
 
             if (response.ok) {
-                setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
+                fetchPosts();
             } else {
-                console.error('Failed to delete post');
+                console.error('Failed to like post');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    // Function to unlike post
+    const unlikePost = async (postId) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/posts/${postId}/unlike`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                fetchPosts();
+            } else {
+                console.error('Failed to unlike post');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -92,6 +121,9 @@ const PostsContainer = () => {
                         />
                     )}
                     <button onClick={() => deletePost(post.id)}>Delete Post</button>
+                    <button onClick={() => likePost(post.id)}>Like</button>
+                    <button onClick={() => unlikePost(post.id)}>Unlike</button>
+                    <p>Likes: {post.likesCount}</p>
                 </div>
             ))}
             {selectedImage && (
