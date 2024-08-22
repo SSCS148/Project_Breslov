@@ -131,6 +131,7 @@ const PostsContainer = () => {
             {posts.map(post => (
                 <div key={post.id} className="post">
                     <p>{post.content}</p>
+                    <p>Likes: {post.likesCount}</p>
                     {post.photo && (
                         <img
                             src={`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`}
@@ -139,11 +140,10 @@ const PostsContainer = () => {
                             onClick={() => handleImageClick(`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`)}
                         />
                     )}
-                    <p>Likes: {post.likesCount}</p>
-                    <div className="button-container">
+                     <div className="button-container">
                     <button onClick={() => likePost(post.id)}>Like</button>
-                    <button className="unlike-button" onClick={() => unlikePost(post.id)}>Unlike</button>
-                    <button className="delete-button" onClick={() => deletePost(post.id)}>Delete</button>
+                    <button onClick={() => unlikePost(post.id)}>Unlike</button>
+                    <button onClick={() => deletePost(post.id)}>Delete</button>
                     </div>
                 </div>
             ))}
