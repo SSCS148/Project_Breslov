@@ -501,3 +501,58 @@ button.delete-button:hover {
   background-color: #e60000;
 }
 
+.button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.like-button {
+  padding: 10px 20px;
+  border: 2px solid #0d47a1; /* Bordure bleue */
+  border-radius: 5px;
+  background-color: white;
+  color: #0d47a1;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.like-button:hover {
+  background-color: #0d47a1;
+  color: white;
+}
+
+.unlike-button {
+  padding: 10px 20px;
+  border: 2px solid #ff9800; /* Bordure orange */
+  border-radius: 5px;
+  background-color: white;
+  color: #ff9800;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.unlike-button:hover {
+  background-color: #ff9800;
+  color: white;
+}
+
+.delete-button {
+  padding: 10px 20px;
+  border: 2px solid #d32f2f; /* Bordure rouge */
+  border-radius: 5px;
+  background-color: white;
+  color: #d32f2f;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+  color: white;
+}
+
