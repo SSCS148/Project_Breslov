@@ -67,5 +67,27 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     }
 });
 
+// Route to unlike a comment (decrement like)
+router.post('/unlike', authMiddleware, async (req, res) => {
+    try {
+        const { commentId } = req.body;
+        const comment = await Comment.findByPk(commentId);
+        if (comment) {
+            if (comment.likes > 0) {
+                comment.likes -= 1;
+                await comment.save();
+                res.status(200).json(comment);
+            } else {
+                res.status(400).json({ message: 'Cannot unlike. No likes to remove.' });
+            }
+        } else {
+            res.status(404).json({ message: 'Comment not found' });
+        }
+    } catch (error) {
+        console.error('Error unliking comment:', error);
+        res.status(500).json({ message: 'Failed to unlike comment', error });
+    }
+});
+
 
 module.exports = router;

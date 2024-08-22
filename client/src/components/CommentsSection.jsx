@@ -73,7 +73,34 @@ const CommentsSection = ({ postId, newComment }) => {
         }
     };
 
-        // Handle deleting a comment
+    // Handle unliking a comment
+    const unlikeComment = async (commentId) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments/unlike', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token,
+                },
+                body: JSON.stringify({ commentId }),
+            });
+            if (response.ok) {
+                const updatedComment = await response.json();
+                setComments(prevComments =>
+                    prevComments.map(comment =>
+                        comment.id === updatedComment.id ? updatedComment : comment
+                    )
+                );
+            } else {
+                console.error('Error unliking comment:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    // Handle deleting a comment
     const deleteComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');
@@ -95,7 +122,6 @@ const CommentsSection = ({ postId, newComment }) => {
         }
     };
 
-
     return (
         <div>
             <h2>Comments</h2>
@@ -109,7 +135,8 @@ const CommentsSection = ({ postId, newComment }) => {
                                 Likes: <span id={`likeCount-${comment.id}`}>{comment.likes}</span>
                             </p>
                             <button onClick={() => likeComment(comment.id)}>Like</button>
-                            <button onClick={() => deleteComment(comment.id)}>Supprimer</button> {/* Ajout du bouton Supprimer */}
+                            <button className="unlike-button" onClick={() => unlikeComment(comment.id)}>Unlike</button> {/* Ajout du bouton Unlike */}
+                            <button className="delete-button" onClick={() => deleteComment(comment.id)}>Supprimer</button>
                         </div>
                     </div>
                 ))}
