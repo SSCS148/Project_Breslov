@@ -39,33 +39,33 @@ exports.getPosts = async (req, res) => {
 
 // Controller pour supprimer un post
 exports.deletePost = async (req, res) => {
-    try {
-        const postId = req.params.id;
-        const userId = req.user.id;
+  try {
+      const postId = req.params.id;
+      const userId = req.user.id;
 
-        // Rechercher le post
-        const post = await Post.findOne({ where: { id: postId, userId } });
+      // Trouver le post
+      const post = await Post.findOne({ where: { id: postId, userId } });
 
-        if (!post) {
-            return res.status(404).json({ message: 'Post not found or you do not have permission to delete this post' });
-        }
+      if (!post) {
+          return res.status(404).json({ message: 'Post not found or you do not have permission to delete this post' });
+      }
 
-        // Supprimer la photo si elle existe
-        if (post.photo) {
-            const photoPath = path.join(__dirname, '../uploads', post.photo);
-            console.log('Deleting photo at:', photoPath);
-            fs.unlink(photoPath, (err) => {
-                if (err) {
-                    console.error('Error deleting photo:', err);
-                }
-            });
-        }
+      // Supprimer la photo si elle existe
+      if (post.photo) {
+          const photoPath = path.join(__dirname, '../uploads', post.photo);
+          console.log('Deleting photo at:', photoPath);
+          fs.unlink(photoPath, (err) => {
+              if (err) {
+                  console.error('Error deleting photo:', err);
+              }
+          });
+      }
 
-        // Supprimer le post
-        await post.destroy();
-        res.status(200).json({ message: 'Post and photo deleted successfully' });
-    } catch (error) {
-        console.error('Error deleting post:', error);
-        res.status(500).json({ message: 'Failed to delete post', error });
-    }
+      // Supprimer le post
+      await post.destroy();
+      res.status(200).json({ message: 'Post and photo deleted successfully' });
+  } catch (error) {
+      console.error('Error deleting post:', error);
+      res.status(500).json({ message: 'Failed to delete post', error });
+  }
 };
