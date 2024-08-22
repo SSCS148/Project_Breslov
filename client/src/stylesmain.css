@@ -456,3 +456,18 @@ footer {
 .books-container.show, .stories-container.show, .principles-content.show, .celebrations-content.show, .community-content.show {
   max-height: 1000px; /* Adjust as needed */
 }
+
+.delete-button {
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #e60000;
+}

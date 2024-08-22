@@ -49,4 +49,23 @@ router.post('/like', authMiddleware, async (req, res) => {
     }
 });
 
+// Route to delete a comment
+router.delete('/:id', authMiddleware, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const comment = await Comment.findByPk(id);
+
+        if (comment) {
+            await comment.destroy();
+            res.status(200).json({ message: 'Comment deleted successfully' });
+        } else {
+            res.status(404).json({ message: 'Comment not found' });
+        }
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        res.status(500).json({ message: 'Failed to delete comment', error });
+    }
+});
+
+
 module.exports = router;
