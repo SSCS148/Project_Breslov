@@ -233,6 +233,7 @@ const MainPage = () => {
                   <img src={likouteyTefilotImg} alt="Likoutey Tefilot" />
                   <p>Likoutey Tefilot</p>
                 </a>
+                <CommentForm onCommentPosted={handleCommentPosted} />
                 <CommentsSection newComment={newComment} comments={comments} setComments={setComments} />
               </div>
           </div>
@@ -285,6 +286,7 @@ const MainPage = () => {
                   <img src={yemeMoharanatImg} alt="Yeme Moharanat" />
                   <p>Yeme Moharanat</p>
                 </a>
+                <CommentForm onCommentPosted={handleCommentPosted} />
                 <CommentsSection newComment={newComment} comments={comments} setComments={setComments} />
               </div>
           </div>
