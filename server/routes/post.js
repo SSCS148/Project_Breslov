@@ -4,7 +4,6 @@ const postController = require('../controllers/post');
 const authenticateToken = require('../middlewares/auth');
 const multer = require('multer');
 const path = require('path');
-const Post = require('../models/Post'); // <-- Ajoute cette ligne pour importer le modèle Post
 
 // Configure Multer storage for post photos
 const storage = multer.diskStorage({
