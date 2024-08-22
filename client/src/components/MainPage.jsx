@@ -319,6 +319,8 @@ const MainPage = () => {
           <p>In recent years, technology and social media have played a significant role in organizing and sharing these events. Live streaming of prayers and celebrations allows those who cannot physically attend to participate virtually. Additionally, the global Breslev community has seen growth, with new centers and communities established worldwide, fostering a sense of connection and shared purpose among followers.</p>
           <p>In conclusion, the celebrations and pilgrimages of Breslev Hasidism, especially the annual Rosh Hashanah pilgrimage to Uman, are integral to the spiritual life of its followers. These events provide opportunities for profound spiritual experiences, communal bonding, and the perpetuation of Rabbi Nachman's legacy. Despite challenges, the commitment to these traditions remains strong, continually adapting to ensure their relevance and accessibility to future generations.</p>
           </div>
+            <CommentForm onCommentPosted={handleCommentPosted} />
+            <CommentsSection newComment={newComment} comments={comments} setComments={setComments} />
         </section>
         <section id="comments">
           <h2 onClick={toggleComments} style={{ cursor: 'pointer' }}>Comments</h2>
