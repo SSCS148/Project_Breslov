@@ -1,22 +1,24 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/database'); // Ajustez le chemin si nécessaire
 
-// Define Post model with Sequelize
-const Post = sequelize.define('Post', {
-  content: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  photo: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+class Post extends Model {}
+
+Post.init({
+    content: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    photo: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    }
 }, {
-  timestamps: true,
+    sequelize,
+    modelName: 'Post',
 });
 
 module.exports = Post;

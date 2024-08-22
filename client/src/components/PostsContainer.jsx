@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import PostForm from './PostForm';
 
-// Initialize socket connection
+// Initialiser la connexion socket
 const socket = io('https://my-backend-v6iy.onrender.com');
 
-// PostsContainer component handles displaying posts and real-time updates
 const PostsContainer = () => {
     const [posts, setPosts] = useState([]);
     const [newComment, setNewComment] = useState(null);
     const [newPost, setNewPost] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
 
-    // Fetch posts from API
+    // Récupérer les posts depuis l'API
     const fetchPosts = async () => {
         try {
             const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts');
@@ -27,42 +26,35 @@ const PostsContainer = () => {
         }
     };
 
-    // Load posts when component mounts
     useEffect(() => {
         fetchPosts();
 
-        // Listen for new posts via socket
+        // Écouter les nouveaux posts via socket
         socket.on('new-post', (post) => {
             setPosts(prevPosts => [post, ...prevPosts]);
         });
 
-        // Cleanup socket connection
         return () => {
             socket.off('new-post');
         };
     }, [newPost]);
 
-    // Callback to update state with new post
     const handlePostCreated = (post) => {
         setNewPost(post);
     };
 
-    // Callback to update state with new comment
     const handleCommentPosted = (comment) => {
         setNewComment(comment);
     };
 
-    // Handle image click to show in a modal
     const handleImageClick = (imageUrl) => {
         setSelectedImage(imageUrl);
     };
 
-    // Close the image modal
     const handleCloseModal = () => {
         setSelectedImage(null);
     };
 
-    // Function to delete post
     const deletePost = async (postId) => {
         try {
             const token = localStorage.getItem('token');
