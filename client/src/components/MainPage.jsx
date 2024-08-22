@@ -262,7 +262,6 @@ const MainPage = () => {
           <p>One of the unique customs in Breslev Hasidism is the annual pilgrimage to Rabbi Nachman's grave in Uman, Ukraine, for Rosh Hashanah. Rabbi Nachman promised great spiritual benefits to those who visit his grave and pray there during the Jewish New Year. This gathering has become a cornerstone event for Breslev Hasidim worldwide.</p>
           <h3>Conclusion</h3>
           <p>The principles of Breslev Hasidism, as taught by Rabbi Nachman of Breslev, offer a path to spiritual growth through joy, prayer, simplicity, faith, and continuous learning. These teachings emphasize a personal, heartfelt relationship with God, the power of gratitude, and the role of the Tzaddik in guiding followers. Through these principles, Breslev Hasidim seek to elevate their souls and contribute to the rectification and redemption of the world.</p>
-          <CommentsSection newComment={newComment} comments={comments} setComments={setComments} />
           </div>
         </section>
         <section id="stories">
