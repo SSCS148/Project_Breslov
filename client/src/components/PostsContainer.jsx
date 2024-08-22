@@ -140,9 +140,9 @@ const PostsContainer = () => {
                             onClick={() => handleImageClick(`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`)}
                         />
                     )}
-                    <button onClick={() => deletePost(post.id)}>Delete Post</button>
                     <button onClick={() => likePost(post.id)}>Like</button>
                     <button onClick={() => unlikePost(post.id)}>Unlike</button>
+                    <button onClick={() => deletePost(post.id)}>Delete</button>
                     <p>Likes: {post.likesCount}</p>
                 </div>
             ))}

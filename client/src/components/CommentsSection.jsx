@@ -136,7 +136,7 @@ const CommentsSection = ({ postId, newComment }) => {
                             </p>
                             <button onClick={() => likeComment(comment.id)}>Like</button>
                             <button className="unlike-button" onClick={() => unlikeComment(comment.id)}>Unlike</button> {/* Ajout du bouton Unlike */}
-                            <button className="delete-button" onClick={() => deleteComment(comment.id)}>Supprimer</button>
+                            <button className="delete-button" onClick={() => deleteComment(comment.id)}>Delete</button>
                         </div>
                     </div>
                 ))}
