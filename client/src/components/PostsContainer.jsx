@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
+import config from '../config';
 import PostForm from './PostForm';
 
-// Initialize socket connection
-const socket = io('https://my-backend-v6iy.onrender.com');
+// Initialize socket connection with authentication
+const token = localStorage.getItem('token');
+const socket = io(config.apiUrl, {
+    auth: {
+        token: token
+    }
+});
 
 // PostsContainer component handles displaying posts and real-time updates
 const PostsContainer = () => {
@@ -15,7 +21,7 @@ const PostsContainer = () => {
     // Fetch posts from API
     const fetchPosts = async () => {
         try {
-            const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts');
+            const response = await fetch(config.endpoints.posts);
             if (response.ok) {
                 const data = await response.json();
                 setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -66,7 +72,7 @@ const PostsContainer = () => {
     const likePost = async (postId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/posts/${postId}/like`, {
+            const response = await fetch(`${config.endpoints.posts}/${postId}/like`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -87,7 +93,7 @@ const PostsContainer = () => {
     const unlikePost = async (postId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/posts/${postId}/unlike`, {
+            const response = await fetch(`${config.endpoints.posts}/${postId}/unlike`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -107,7 +113,7 @@ const PostsContainer = () => {
     const deletePost = async (postId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/posts/${postId}`, {
+            const response = await fetch(`${config.endpoints.posts}/${postId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -134,10 +140,10 @@ const PostsContainer = () => {
                     <p>Likes: {post.likesCount}</p>
                     {post.photo && (
                         <img
-                            src={`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`}
+                            src={`${config.endpoints.uploads}/${post.photo}`}
                             alt="Post"
                             className="thumbnail"
-                            onClick={() => handleImageClick(`https://my-backend-v6iy.onrender.com/uploads/${post.photo}`)}
+                            onClick={() => handleImageClick(`${config.endpoints.uploads}/${post.photo}`)}
                         />
                     )}
                     <div className="button-container">

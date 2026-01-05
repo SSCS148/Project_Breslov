@@ -1,21 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middlewares/auth');
+const { commentLimiter } = require('../middlewares/rateLimiter');
+const { validateComment } = require('../middlewares/validation');
 const Comment = require('../models/Comment'); // Import Comment model directly
 
-// Route to post a comment
-router.post('/', authMiddleware, async (req, res) => {
+// Route to post a comment with rate limiting and validation
+router.post('/', authMiddleware, commentLimiter, validateComment, async (req, res) => {
     try {
-        console.log('Request body:', req.body);
-        console.log('User ID:', req.user.id);
-
         const { comment, postId } = req.body;
         const newComment = await Comment.create({ comment, postId, userId: req.user.id });
 
-        console.log('New comment created:', newComment);
         res.status(201).json(newComment);
     } catch (error) {
-        console.error('Error posting comment:', error);
+        if (process.env.NODE_ENV === 'development') {
+            console.error('Error posting comment:', error.message);
+        }
         res.status(500).json({ message: 'Failed to post comment', error });
     }
 });
@@ -55,12 +55,17 @@ router.delete('/:id', authMiddleware, async (req, res) => {
         const { id } = req.params;
         const comment = await Comment.findByPk(id);
 
-        if (comment) {
-            await comment.destroy();
-            res.status(200).json({ message: 'Comment deleted successfully' });
-        } else {
-            res.status(404).json({ message: 'Comment not found' });
+        if (!comment) {
+            return res.status(404).json({ message: 'Comment not found' });
         }
+
+        // Check if the user is the author of the comment
+        if (comment.userId !== req.user.id) {
+            return res.status(403).json({ message: 'Unauthorized: You can only delete your own comments' });
+        }
+
+        await comment.destroy();
+        res.status(200).json({ message: 'Comment deleted successfully' });
     } catch (error) {
         console.error('Error deleting comment:', error);
         res.status(500).json({ message: 'Failed to delete comment', error });

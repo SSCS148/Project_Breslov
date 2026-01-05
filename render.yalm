@@ -10,10 +10,18 @@ services:
     env: node
     buildCommand: cd server && npm install
     startCommand: cd server && npm start
-    envVars:
-      - key: DATABASE_URL
-        value: postgresql://Database_Project_owner:BvQ56KoscnJM@ep-tiny-firefly-a1wy3w9a.ap-southeast-1.aws.neon.tech/Database_Project?sslmode=require
-      - key: JWT_SECRET
-        value: 1b48d79ffcf4d39251563f8ebda257d1b65c0f687b43dca1d2436fc23968aff7671906fb9103bca29de795f294d82655629a66117e5d7ea9162ac5d1a07684f6
-      - key: JWT_REFRESH_SECRET
-        value: 6c12303eeff89868cead96a0ec7a75516a8c6d3dfbf55dc965fff8f6f1a211e9e1cae047383cecb4c383ab2a8f4bdafe4b26e684dcdb30fba2975cdab57ed815
+    # IMPORTANT: Configure these environment variables in Render Dashboard
+    # DO NOT commit sensitive values to the repository
+    # envVars:
+    #   - key: DATABASE_URL
+    #     sync: false  # Set this in Render Dashboard
+    #   - key: JWT_SECRET
+    #     sync: false  # Set this in Render Dashboard
+    #   - key: JWT_REFRESH_SECRET
+    #     sync: false  # Set this in Render Dashboard
+    #   - key: PORT
+    #     value: 5002
+    #   - key: FRONTEND_URL
+    #     value: https://project-breslov.onrender.com
+    #   - key: NODE_ENV
+    #     value: production

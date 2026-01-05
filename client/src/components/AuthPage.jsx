@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import config from '../config';
 import '../styles.css';
 
 // AuthPage component handles user authentication (login and registration)
@@ -24,9 +25,9 @@ const AuthPage = () => {
     const handleAuth = async (e) => {
         e.preventDefault();
         try {
-            const url = isLogin 
-                ? 'https://my-backend-v6iy.onrender.com/api/user/login'
-                : 'https://my-backend-v6iy.onrender.com/api/user/register';
+            const url = isLogin
+                ? config.endpoints.login
+                : config.endpoints.register;
     
             const data = isLogin 
                 ? { email, password }

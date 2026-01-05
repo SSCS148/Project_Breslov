@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user');
 const authMiddleware = require('../middlewares/auth');
+const { authLimiter } = require('../middlewares/rateLimiter');
+const { validateRegistration, validateLogin } = require('../middlewares/validation');
 
-// Authentication and token refresh routes
-router.post('/register', userController.register);
-router.post('/login', userController.login);
+// Authentication and token refresh routes with rate limiting and validation
+router.post('/register', authLimiter, validateRegistration, userController.register);
+router.post('/login', authLimiter, validateLogin, userController.login);
 router.get('/check-email', userController.checkEmail);
 router.get('/users', userController.getAllUsers);
 router.post('/refresh-token', userController.refreshToken);

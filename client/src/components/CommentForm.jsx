@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import config from '../config';
 
 // CommentForm component allows users to post comments on a specific post
 const CommentForm = ({ postId, onCommentPosted }) => {
@@ -10,13 +11,13 @@ const CommentForm = ({ postId, onCommentPosted }) => {
     
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments', {
+            const response = await fetch(config.endpoints.comments, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: 'Bearer ' + token,
                 },
-                body: JSON.stringify({ comment, postId: 96 }), // Ensure postId is valid
+                body: JSON.stringify({ comment, postId }), // Use the actual postId prop
             });
     
             if (response.ok) {
