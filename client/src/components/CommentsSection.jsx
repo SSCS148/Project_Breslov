@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
+import config from '../config';
 
-// Initialize socket connection
-const socket = io('https://my-backend-v6iy.onrender.com');
+// Initialize socket connection with authentication
+const token = localStorage.getItem('token');
+const socket = io(config.apiUrl, {
+    auth: {
+        token: token
+    }
+});
 
 // CommentsSection component displays and handles interactions with comments
 const CommentsSection = ({ postId, newComment }) => {
@@ -11,7 +17,7 @@ const CommentsSection = ({ postId, newComment }) => {
     // Load comments for a specific post
     const loadComments = async () => {
         try {
-            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/comments?postId=${postId}`);
+            const response = await fetch(`${config.endpoints.comments}?postId=${postId}`);
             if (response.ok) {
                 const data = await response.json();
                 // Sort comments by creation date
@@ -50,7 +56,7 @@ const CommentsSection = ({ postId, newComment }) => {
     const likeComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments/like', {
+            const response = await fetch(`${config.endpoints.comments}/like`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,7 +83,7 @@ const CommentsSection = ({ postId, newComment }) => {
     const unlikeComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments/unlike', {
+            const response = await fetch(`${config.endpoints.comments}/unlike`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,7 +110,7 @@ const CommentsSection = ({ postId, newComment }) => {
     const deleteComment = async (commentId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`https://my-backend-v6iy.onrender.com/api/comments/${commentId}`, {
+            const response = await fetch(`${config.endpoints.comments}/${commentId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import config from '../config';
 import CommentForm from './CommentForm';
 import CommentsSection from './CommentsSection';
 import PostForm from './PostForm';
@@ -54,7 +55,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch('https://my-backend-v6iy.onrender.com/api/comments');
+        const response = await fetch(config.endpoints.comments);
         if (response.ok) {
           const data = await response.json();
           setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
@@ -68,7 +69,7 @@ const MainPage = () => {
 
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts');
+        const response = await fetch(config.endpoints.posts);
         if (response.ok) {
           const data = await response.json();
           setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));

@@ -3,6 +3,8 @@ const router = express.Router();
 const postController = require('../controllers/post');
 const likeController = require('../controllers/likeController');
 const authenticateToken = require('../middlewares/auth');
+const { postLimiter } = require('../middlewares/rateLimiter');
+const { validatePost } = require('../middlewares/validation');
 const multer = require('multer');
 const path = require('path');
 
@@ -18,10 +20,29 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+// File filter to validate image types
+const fileFilter = (req, file, cb) => {
+  // Allowed image MIME types
+  const allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
 
-// Routes for post creation and retrieval
-router.post('/', authenticateToken, upload.single('photo'), postController.createPost);
+  if (allowedMimeTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error('Invalid file type. Only JPEG, PNG, GIF, and WebP images are allowed.'), false);
+  }
+};
+
+// Configure Multer with size limits and file filter
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB max file size
+  },
+  fileFilter: fileFilter,
+});
+
+// Routes for post creation and retrieval with rate limiting and validation
+router.post('/', authenticateToken, postLimiter, upload.single('photo'), validatePost, postController.createPost);
 router.get('/', postController.getPosts);
 
 // Route to delete a post

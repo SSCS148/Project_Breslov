@@ -3,8 +3,8 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-// Initialize Sequelize with PostgreSQL connection
-const sequelize = new Sequelize('postgresql://Database_Project_owner:BvQ56KoscnJM@ep-tiny-firefly-a1wy3w9a.ap-southeast-1.aws.neon.tech/Database_Project?sslmode=require', {
+// Initialize Sequelize with PostgreSQL connection from environment variable
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
   logging: false,
   dialectOptions: {
