@@ -7,6 +7,7 @@ import PostsContainer from './PostsContainer';
 import '../stylesmain.css';
 import logo from '../assets/פסים-צבעוני-חדש.jpeg';
 
+// PDF imports
 import likouteyMoharanPdf from '../assets/likoutey-moharan.pdf';
 import meshivatNefeshPdf from '../assets/meshivat-nefesh.pdf';
 import sihotHaranPdf from '../assets/sihot-haran.pdf';
@@ -14,10 +15,11 @@ import likouteyEtsotPdf from '../assets/likoutey-etsot.pdf';
 import seferHamidotPdf from '../assets/sefer-hamidot.pdf';
 import sipoureiMaasiotPdf from '../assets/sipourei-maasiot.pdf';
 import tikunHaklaliPdf from '../assets/tikun-haklali.pdf';
-import hayeMoharanImg from '../assets/haye-moharan.jpeg'; 
-import likouteyTefilotImg from '../assets/likoutey-tefilot.jpeg';
-import yemeMoharanatImg from '../assets/yeme-moharanat.jpeg'; 
+import hayeMoharanPdf from '../assets/haye-moharan.pdf';
+import likouteyTefilotPdf from '../assets/likoutey-tefilot.pdf';
+import yemeMoharanatPdf from '../assets/yeme-moharanat.pdf';
 
+// Image imports
 import likouteyMoharanImg from '../assets/likoutey-moharan.jpeg';
 import meshivatNefeshImg from '../assets/meshivat-nefesh.jpeg';
 import sihotHaranImg from '../assets/sihot-haran.jpeg';
@@ -25,10 +27,9 @@ import likouteyEtsotImg from '../assets/likoutey-etsot.jpeg';
 import seferHamidotImg from '../assets/sefer-hamidot.jpeg';
 import sipoureiMaasiotImg from '../assets/sipourei-maasiot.jpeg';
 import tikunHaklaliImg from '../assets/tikun-haklali.jpeg';
-import genericBookImg from '../assets/generic-book.jpeg';
-import hayeMoharanPdf from '../assets/haye-moharan.pdf'; 
-import likouteyTefilotPdf from '../assets/likoutey-tefilot.pdf';
-import yemeMoharanatPdf from '../assets/yeme-moharanat.pdf';
+import hayeMoharanImg from '../assets/haye-moharan.jpeg';
+import likouteyTefilotImg from '../assets/likoutey-tefilot.jpeg';
+import yemeMoharanatImg from '../assets/yeme-moharanat.jpeg';
 
 // MainPage component handles displaying various sections and user interactions
 const MainPage = () => {

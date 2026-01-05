@@ -2,11 +2,6 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// ANSI codes for console colors
-const ANSI_RED = '\x1b[31m';
-const ANSI_GREEN = '\x1b[32m';
-const ANSI_RESET = '\x1b[0m';
-
 // Function to generate tokens
 const generateTokens = (user) => {
   const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '31d' });
