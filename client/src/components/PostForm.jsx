@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import config from '../config';
 
 // PostForm component allows users to create new posts with optional photo
 const PostForm = ({ onPostCreated }) => {
@@ -17,7 +18,7 @@ const PostForm = ({ onPostCreated }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('https://my-backend-v6iy.onrender.com/api/posts', {
+            const response = await fetch(config.endpoints.posts, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import config from '../config';
 import CommentForm from './CommentForm';
 import CommentsSection from './CommentsSection';
-import PostForm from './PostForm';
 import PostsContainer from './PostsContainer';
 import '../stylesmain.css';
 import logo from '../assets/פסים-צבעוני-חדש.jpeg';
@@ -25,7 +24,6 @@ import likouteyEtsotImg from '../assets/likoutey-etsot.jpeg';
 import seferHamidotImg from '../assets/sefer-hamidot.jpeg';
 import sipoureiMaasiotImg from '../assets/sipourei-maasiot.jpeg';
 import tikunHaklaliImg from '../assets/tikun-haklali.jpeg';
-import genericBookImg from '../assets/generic-book.jpeg';
 import hayeMoharanPdf from '../assets/haye-moharan.pdf'; 
 import likouteyTefilotPdf from '../assets/likoutey-tefilot.pdf';
 import yemeMoharanatPdf from '../assets/yeme-moharanat.pdf';
@@ -33,25 +31,18 @@ import yemeMoharanatPdf from '../assets/yeme-moharanat.pdf';
 // MainPage component handles displaying various sections and user interactions
 const MainPage = () => {
   const [comments, setComments] = useState([]);
-  const [posts, setPosts] = useState([]);
   const [newComment, setNewComment] = useState(null);
-  const [newPost, setNewPost] = useState(null);
-  const [showBiography, setShowBiography] = useState(false); // Toggle Biography section
-  const [showTeachings, setShowTeachings] = useState(false); // Toggle Teachings section
-  const [showStories, setShowStories] = useState(false); // Toggle Stories section
-  const [showComments, setShowComments] = useState(false); // Toggle Comments section
-  const [showPrinciples, setShowPrinciples] = useState(false);  // Toggle Principles section
-  const [showCelebrations, setShowCelebrations] = useState(false); // Toggle Celebrations section
+  const [showBiography, setShowBiography] = useState(false);
+  const [showTeachings, setShowTeachings] = useState(false);
+  const [showStories, setShowStories] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [showPrinciples, setShowPrinciples] = useState(false);
+  const [showCelebrations, setShowCelebrations] = useState(false);
 
-  // Callback to update state with new comment
   const handleCommentPosted = (comment) => {
     setNewComment(comment);
   };
-  // Callback to update state with new post
-  const handlePostCreated = (post) => {
-    setNewPost(post);
-  };
-  // Fetch comments from API
+
   useEffect(() => {
     const fetchComments = async () => {
       try {
@@ -59,45 +50,19 @@ const MainPage = () => {
         if (response.ok) {
           const data = await response.json();
           setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-        } else {
-          console.error('Error fetching comments:', response.statusText);
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error fetching comments:', error);
       }
     };
-
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch(config.endpoints.posts);
-        if (response.ok) {
-          const data = await response.json();
-          setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-        } else {
-          console.error('Error fetching posts:', response.statusText);
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
-
     fetchComments();
-    fetchPosts();
   }, []);
 
-  // Update comments state when a new comment is received
   useEffect(() => {
     if (newComment) {
       setComments((prevComments) => [newComment, ...prevComments]);
     }
   }, [newComment]);
-
-  // Update posts state when a new post is received
-  useEffect(() => {
-    if (newPost) {
-      setPosts((prevPosts) => [newPost, ...prevPosts]);
-    }
-  }, [newPost]);
   
    // Toggle various sections visibility
   const toggleBiography = () => {
@@ -335,7 +300,7 @@ const MainPage = () => {
         </section>
         <section id="communication">
           <h2><div className="live">Chat Live</div></h2>
-          <PostsContainer posts={posts} />
+          <PostsContainer />
         </section>
       </main>
       <footer>

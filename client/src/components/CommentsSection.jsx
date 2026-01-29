@@ -1,51 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { io } from 'socket.io-client';
 import config from '../config';
 
-// Initialize socket connection with authentication
-const token = localStorage.getItem('token');
-const socket = io(config.apiUrl, {
-    auth: {
-        token: token
-    }
-});
-
-// CommentsSection component displays and handles interactions with comments
 const CommentsSection = ({ postId, newComment }) => {
     const [comments, setComments] = useState([]);
+    const socketRef = useRef(null);
 
-    // Load comments for a specific post
     const loadComments = async () => {
         try {
             const response = await fetch(`${config.endpoints.comments}?postId=${postId}`);
             if (response.ok) {
                 const data = await response.json();
-                // Sort comments by creation date
                 setComments(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-            } else {
-                console.error('Error fetching comments:', response.statusText);
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error fetching comments:', error);
         }
     };
 
-    // Load comments when component mounts or postId changes
     useEffect(() => {
         loadComments();
 
-        // Listen for new comments via socket
-        socket.on('new-comment', (comment) => {
+        const token = localStorage.getItem('token');
+        socketRef.current = io(config.apiUrl, {
+            auth: { token }
+        });
+
+        socketRef.current.on('new-comment', (comment) => {
             setComments(prevComments => [comment, ...prevComments]);
         });
 
-        // Cleanup socket connection
         return () => {
-            socket.off('new-comment');
+            if (socketRef.current) {
+                socketRef.current.off('new-comment');
+                socketRef.current.disconnect();
+            }
         };
     }, [postId]);
 
-    // Add new comment to the state when it is received
     useEffect(() => {
         if (newComment) {
             setComments(prevComments => [newComment, ...prevComments]);
