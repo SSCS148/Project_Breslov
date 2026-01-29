@@ -2,12 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// ANSI codes for console colors
-const ANSI_RED = '\x1b[31m';
-const ANSI_GREEN = '\x1b[32m';
-const ANSI_RESET = '\x1b[0m';
-
-// Function to generate tokens
+const generateTokens = (user) => {
 const generateTokens = (user) => {
   const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '31d' });
   const refreshToken = jwt.sign({ id: user.id }, process.env.JWT_REFRESH_SECRET, { expiresIn: '31d' });
@@ -62,31 +57,31 @@ exports.login = async (req, res) => {
   }
 };
 
-// Check if email exists
 exports.checkEmail = async (req, res) => {
   try {
     const { email } = req.query;
     const user = await User.findOne({ where: { email } });
-
     res.json({ exists: !!user });
   } catch (error) {
-    console.error(`${ANSI_RED}Error checking email: ${error}${ANSI_RESET}`);
-    res.status(500).json({ error: 'Error checking email' });
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error checking email:', error.message);
+    }
+    res.status(500).json({ message: 'Error checking email' });
   }
 };
 
-// Get all users
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll();
     res.json(users);
   } catch (error) {
-    console.error(`${ANSI_RED}Error fetching users: ${error}${ANSI_RESET}`);
-    res.status(500).json({ error: 'Error fetching users' });
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching users:', error.message);
+    }
+    res.status(500).json({ message: 'Error fetching users' });
   }
 };
 
-// Refresh token
 exports.refreshToken = async (req, res) => {
   try {
     const { refreshToken } = req.body;
@@ -99,7 +94,9 @@ exports.refreshToken = async (req, res) => {
 
     res.json(tokens);
   } catch (error) {
-    console.error(`${ANSI_RED}Error refreshing token: ${error}${ANSI_RESET}`);
-    res.status(500).json({ error: 'Error refreshing token' });
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error refreshing token:', error.message);
+    }
+    res.status(500).json({ message: 'Error refreshing token' });
   }
 };

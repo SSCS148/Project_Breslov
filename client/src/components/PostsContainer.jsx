@@ -1,61 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import config from '../config';
 import PostForm from './PostForm';
 
-// Initialize socket connection with authentication
-const token = localStorage.getItem('token');
-const socket = io(config.apiUrl, {
-    auth: {
-        token: token
-    }
-});
-
-// PostsContainer component handles displaying posts and real-time updates
 const PostsContainer = () => {
     const [posts, setPosts] = useState([]);
-    const [newComment, setNewComment] = useState(null);
-    const [newPost, setNewPost] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
+    const socketRef = useRef(null);
 
-    // Fetch posts from API
     const fetchPosts = async () => {
         try {
             const response = await fetch(config.endpoints.posts);
             if (response.ok) {
                 const data = await response.json();
                 setPosts(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-            } else {
-                console.error('Error fetching posts:', response.statusText);
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Error fetching posts:', error);
         }
     };
 
-    // Load posts when component mounts
     useEffect(() => {
         fetchPosts();
 
-        // Listen for new posts via socket
-        socket.on('new-post', (post) => {
+        const token = localStorage.getItem('token');
+        socketRef.current = io(config.apiUrl, {
+            auth: { token }
+        });
+
+        socketRef.current.on('new-post', (post) => {
             setPosts(prevPosts => [post, ...prevPosts]);
         });
 
-        // Cleanup socket connection
         return () => {
-            socket.off('new-post');
+            if (socketRef.current) {
+                socketRef.current.off('new-post');
+                socketRef.current.disconnect();
+            }
         };
-    }, [newPost]);
+    }, []);
 
-    // Callback to update state with new post
     const handlePostCreated = (post) => {
-        setNewPost(post);
-    };
-
-    // Callback to update state with new comment
-    const handleCommentPosted = (comment) => {
-        setNewComment(comment);
+        setPosts(prevPosts => [post, ...prevPosts]);
     };
 
     // Handle image click to show in a modal

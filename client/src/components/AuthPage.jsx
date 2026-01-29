@@ -21,32 +21,26 @@ const AuthPage = () => {
         setShowPassword(!showPassword);
     };
 
-    // Handle form submission for login/registration
     const handleAuth = async (e) => {
         e.preventDefault();
         try {
             const url = isLogin
                 ? config.endpoints.login
                 : config.endpoints.register;
-    
-            const data = isLogin 
+
+            const data = isLogin
                 ? { email, password }
                 : { name, email, password, age };
-    
-            console.log('Sending request to:', url);
-            console.log('Request data:', data);
-    
+
             const response = await axios.post(url, data);
-    
+
             if (response && response.data) {
-                console.log('Response:', response.data);
                 setMessage(response.data.message);
-    
+
                 if (isLogin) {
                     localStorage.setItem('token', response.data.tokens.accessToken);
-                    navigate('/main'); // Redirect to MainPage after successful login
+                    navigate('/main');
                 } else {
-                    // Reset form for login after successful registration
                     setIsLogin(true);
                     setPassword('');
                     setName('');
@@ -57,7 +51,6 @@ const AuthPage = () => {
                 setMessage('Unexpected response format');
             }
         } catch (error) {
-            console.log('Error response:', error.response);
             setMessage(error.response?.data?.message || 'An error occurred');
         }
     };
